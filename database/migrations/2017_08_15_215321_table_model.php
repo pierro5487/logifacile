@@ -13,7 +13,7 @@ class TableModel extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('models', function (Blueprint $table) {
+		Schema::create('modeles', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('nom');
 			$table->string('marque_id');
@@ -28,6 +28,6 @@ class TableModel extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('models');
+		Schema::dropIfExists('modeles');
 	}
 }

@@ -30,20 +30,30 @@
 
         /*-- dom --*/
         var selectMarque = $('#marque_id');
+        var selectModele = $('#model_id');
 
         /*---events ---*/
 
         selectMarque.on('change',function(){
-            var idMarque = $(this);
+            var idMarque = selectMarque.val();
+            console.log(idMarque);
             $.ajax({
-                url:'{{route('models.getModelsForMarque')}}',
+                url:'{{route('models.getModelesForMarque')}}',
                 dataType:'json',
                 type:'get',
                 data:{
                     marque:idMarque
                 },
-                success:function(){
-
+                success:function(res){
+                    var select = [];
+                    $.each(res,function(letter,autos){
+                        select.push('<optgroup label="'+letter+'" >');
+                        $.each(autos,function(id,auto){
+                            select.push('<option value="'+id+'">'+auto+'</option>');
+                        });
+                        select.push('</optgroup>');
+                    });
+                    selectModele.empty().append(select.join(''));
                 }
             });
         })

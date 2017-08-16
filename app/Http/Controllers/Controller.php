@@ -25,7 +25,7 @@ class Controller extends BaseController
 			if(!empty($secondLabel)){
 				$option .= ' '.$item[$secondLabel];
 			}
-			$liste[$firstLetter][] = $option;
+			$liste[$firstLetter][$item['id']] = $option;
 		}
 		return $liste;
 	}

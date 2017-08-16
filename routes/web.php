@@ -32,6 +32,7 @@ Route::get('/cp/search','CodePostalController@Search')->name('codePostal.search'
 
 /*--------autos----------*/
 Route::get('/autos/ajout/{client?}','AutosController@add')->name('autos.add')->where('client','[0-9]*');
+Route::post('/autos/sauve','AutosController@sauve')->name('autos.sauve');
 
 /*-------modeles-----*/
-Route::get('/models/getModelsForMarque','ModelsController@getModelsForMarque')->name('models.getModelsForMarque');
+Route::get('/modeles/getModelesForMarque','ModelesController@getModelesForMarque')->name('models.getModelesForMarque');
