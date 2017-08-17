@@ -17,7 +17,7 @@
     </div>
     <div class="form-group col-md-6 {{ ($errors->has('model_id'))?'has-error':''}}">
         {!! Form::label('model_id', 'Model',['class'=> 'control-label']) !!}
-        {!! Form::select('model_id',isset($auto)?$model:[],isset($auto)?$auto->model_id:'',['placeholder' => 'Choisissez un modèle de véhicule','class' => 'form-control','required']) !!}
+        {!! Form::select('model_id',isset($auto)?$modeles:[],isset($auto)?$auto->model_id:'',['placeholder' => 'Choisissez un modèle de véhicule','class' => 'form-control','required']) !!}
         <div class="control-feedback">{{ ($errors->has('model_id'))?$errors->first('marque_id'):''}}</div>
     </div>
 

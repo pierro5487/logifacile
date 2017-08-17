@@ -28,6 +28,13 @@ class AutoRequest extends FormRequest
             'marque_id' => 'exists:marques,id',
 			'model_id' 	=> 'exists:modeles,id|nullable',
 //			'immat'		=> 'regex:#^([A-Za-z][A-Za-z]?-[0-9]{2}[0-9]?-[A-Za-z]{2})|([0-9]{3}-[A-Za-z]{3}-[0-9]{2})|[A-Za-z]{2}[0-9]{4}$#'
+			'immat'		=> 'unique:autos,immat'
         ];
     }
+    
+    public function message(){
+    	return [
+    		'immat.unique' => 'Une auto est déja enregistré sous cette immatriculation'
+		];
+	}
 }

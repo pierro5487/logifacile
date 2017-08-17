@@ -78,4 +78,14 @@ class ClientsController extends Controller
 			Session::flash('error','Une erreur est survenue pendant l\'enregistrement');
 		}
 	}
+	
+	public function searchClient(Request $request){
+		if($request->ajax()){
+			$data = $request->all();
+			$search = $data['search'];
+			$clientManager = new Client();
+			$clients = $clientManager->getClientListForSearch($search);
+			return view('elements.clients.clientList',compact('clients'));
+		}
+	}
 }

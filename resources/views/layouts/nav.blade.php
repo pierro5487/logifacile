@@ -1,5 +1,5 @@
 <li class="active">
-    <a href="{{route('home')}}"><i class="fa fa-fw fa-dashboard"></i> Tableau de bord</a>
+    {{--<a href="{{route('home')}}"><i class="fa fa-fw fa-dashboard"></i> Tableau de bord</a>--}}
 </li>
 <li>
     <a href="javascript:;" data-toggle="collapse" data-target="#clientsNav"><i class="fa fa-users"></i> Clients <i class="fa fa-fw fa-caret-down"></i></a>
@@ -16,7 +16,7 @@
     <a href="javascript:;" data-toggle="collapse" data-target="#autosNav"><i class="fa fa-car"></i> Autos <i class="fa fa-fw fa-caret-down"></i></a>
     <ul id="autosNav" class="collapse">
         <li>
-            {{--<a href="{{route('autos.liste')}}">Liste</a>--}}
+            <a href="{{route('autos.index')}}">Liste</a>
         </li>
         <li>
             <a href="{{route('autos.add')}}">Ajouter</a>
@@ -24,8 +24,46 @@
     </ul>
 </li>
 <li>
-    <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
+    <a href="javascript:;" data-toggle="collapse" data-target="#montageNav"><i class="fa fa-life-ring"></i> Montages <i class="fa fa-fw fa-caret-down"></i></a>
+    <ul id="montageNav" class="collapse">
+        {{--<li>
+            <a href="{{route('autos.index')}}">Liste</a>
+        </li>--}}
+        <li>
+            <a href="{{route('montages.add')}}">Ajouter</a>
+        </li>
+    </ul>
 </li>
 <li>
-    <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
+    <a href="javascript:;" data-toggle="collapse" data-target="#depannageNav"><i class="fa fa-road"></i> Dépannage/fourriere <i class="fa fa-fw fa-caret-down"></i></a>
+    <ul id="depannageNav" class="collapse">
+       <li>
+            <a href="{{route('autos.index')}}">Liste</a>
+        </li>
+        <li>
+            <a href="{{route('autos.add')}}">Ajouter</a>
+        </li>
+    </ul>
+</li>
+<li>
+    <a href="javascript:;" data-toggle="collapse" data-target="#decalaminageNav"><i class="fa fa-leaf"></i> Décalaminage <i class="fa fa-fw fa-caret-down"></i></a>
+    <ul id="decalaminageNav" class="collapse">
+        <li>
+            <a href="{{route('autos.index')}}">Liste</a>
+        </li>
+        <li>
+            <a href="{{route('autos.add')}}">Ajouter</a>
+        </li>
+    </ul>
+</li>
+<li>
+    <a href="javascript:;" data-toggle="collapse" data-target="#factureNav"><i class="fa fa-archive"></i> Factures <i class="fa fa-fw fa-caret-down"></i></a>
+    <ul id="factureNav" class="collapse">
+        <li>
+            <a href="{{route('autos.index')}}">Liste</a>
+        </li>
+        <li>
+            <a href="{{route('autos.add')}}">Ajouter</a>
+        </li>
+    </ul>
 </li>

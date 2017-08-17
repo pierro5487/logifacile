@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title','Nouvel Auto')
+@section('title','modification Auto')
 
 @section('content')
-    {!! Form::open(['url' => url('autos/sauve'),'autocomplete'=>"off",'class'=>'form-min-height','id'=>"formAjoutAuto"]) !!}
+    {!! Form::open(['url' => url('autos/update/'.$auto->id),'autocomplete'=>"off",'class'=>'form-min-height','id'=>"formAjoutAuto"]) !!}
     @include('autos.form')
     {{--@include('elements/clientRedirection')--}}
     {!! Form::close() !!}
@@ -18,10 +18,10 @@
 
             /*---events--*/
 
-           /* submitBoutton.on('click',function(event){
-                event.preventDefault();
-                modalRedirection.modal('show');
-            });*/
+            /* submitBoutton.on('click',function(event){
+             event.preventDefault();
+             modalRedirection.modal('show');
+             });*/
 
         });
     </script>
