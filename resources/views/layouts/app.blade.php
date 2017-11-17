@@ -147,7 +147,10 @@
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        <form method="POST" action="/logout">
+                            {{ csrf_field() }}
+                            <button type="submit"><i class="fa fa-fw fa-power-off"></i>Se déconnecter</button>
+                        </form>
                     </li>
                 </ul>
             </li>
