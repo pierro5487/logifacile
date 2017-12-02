@@ -13,7 +13,7 @@ class CreateGroupeligne extends Migration
      */
     public function up()
     {
-        Schema::create('groupe_ligne', function (Blueprint $table) {
+        Schema::create('groupe_lignes', function (Blueprint $table) {
 			$table->increments('id');
 			$table->integer('document_id');
 			$table->integer('auto_id')->nullable();
@@ -35,6 +35,6 @@ class CreateGroupeligne extends Migration
      */
     public function down()
     {
-		Schema::dropIfExists('groupe_ligne');
+		Schema::dropIfExists('groupe_lignes');
     }
 }

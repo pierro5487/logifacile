@@ -23,7 +23,7 @@
         </li>
     </ul>
 </li>
-<li>
+<!--<li>
     <a href="javascript:;" data-toggle="collapse" data-target="#montageNav"><i class="fa fa-life-ring"></i> Montages <i class="fa fa-fw fa-caret-down"></i></a>
     <ul id="montageNav" class="collapse">
         {{--<li>
@@ -55,15 +55,15 @@
             <a href="{{route('autos.add')}}">Ajouter</a>
         </li>
     </ul>
-</li>
+</li>-->
 <li>
     <a href="javascript:;" data-toggle="collapse" data-target="#factureNav"><i class="fa fa-archive"></i> Factures <i class="fa fa-fw fa-caret-down"></i></a>
     <ul id="factureNav" class="collapse">
         <li>
-            <a href="{{route('autos.index')}}">Liste</a>
+            <a href="{{route('factures.index')}}">Liste</a>
         </li>
         <li>
-            <a href="{{route('autos.add')}}">Ajouter</a>
+            <a href="{{route('factures.add')}}">Ajouter</a>
         </li>
     </ul>
 </li>

@@ -13,7 +13,7 @@ class CreateFactureTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('facture', function (Blueprint $table) {
+		Schema::create('factures', function (Blueprint $table) {
 			$table->increments('id');
 			$table->dateTime('date_document');
 			$table->string('etat')->default('brouillon');
@@ -55,6 +55,6 @@ class CreateFactureTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('facture');
+		Schema::dropIfExists('factures');
 	}
 }

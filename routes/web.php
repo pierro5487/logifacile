@@ -46,3 +46,8 @@ Route::get('/modeles/getModelesForMarque','ModelesController@getModelesForMarque
 
 /*------montages-----*/
 Route::get('/montages/ajout','MontagesController@add')->name('montages.add');
+
+/*-----factures-----*/
+Route::get('/factures','FacturesController@index')->name('factures.index');
+Route::get('/factures/ajout','FacturesController@add')->name('factures.add');
+Route::get('/factures/visualise/{facture}','FacturesController@visualise')->name('factures.visualise')->where('facture','[0-9]*');

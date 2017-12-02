@@ -13,7 +13,7 @@ class CreateLigneFacture extends Migration
      */
     public function up()
     {
-        Schema::create('lignesfacture', function (Blueprint $table) {
+        Schema::create('lignesfactures', function (Blueprint $table) {
 			$table->increments('id');
 			$table->integer('document_id');
 			$table->string('libelle');
@@ -35,6 +35,6 @@ class CreateLigneFacture extends Migration
      */
     public function down()
     {
-		Schema::dropIfExists('lignesfacture');
+		Schema::dropIfExists('lignesfactures');
     }
 }
