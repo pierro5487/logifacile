@@ -14,18 +14,22 @@ class FacturesController extends Controller
 	}
 	
 	public function visualise(Facture $facture){
+		//$facture = Facture::where('id',$idFacture)->with('Lignes')->first();
 //		dd($facture);
+		$totaux = $facture->getTotaux(0);
+//		dd($totaux);
 		//on récupère les groupes avec leur ligne pour cette facture
 		$groupes = GroupeLigne::where('document_id',$facture->id)->with('Ligne')->get();
-//		dd($groupes);
+		//on calcule le total de la facture
 		//on créer la facture
 		$pdf = new FacturePdf();
-		$pdf->setAutoE();
+//		$pdf->setAutoE();
 		$pdf->AliasNbPages();
 		$pdf->AddPage();
 		$pdf->infoFacture($facture);
 		$pdf->client($facture);
 		$pdf->lignes($groupes);
+		$pdf->totauxFooter($totaux);
 		$pdf->Output();
 	}
 }
