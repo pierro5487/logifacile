@@ -59,6 +59,10 @@ class Facture extends Model
 			$totaux['totalTTC'] = $totaux['totalTTC']+$montantTva+$montantGlobaleHTRemise;
 		}
 		$totaux['encaissements'] = $this->reglements;
+		foreach ($totaux['encaissements'] as $encaissement) {
+			$totaux['totalEncaissement'] += $encaissement['montant'];
+		}
+		$totaux['netAPaye'] = $totaux['totalTTC'] - $totaux['totalEncaissement'];
 		return $totaux;
 	}
 }

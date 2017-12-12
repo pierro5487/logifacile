@@ -19,7 +19,7 @@ class CreateReglementTable extends Migration
 			$table->string('note')->nullable();
 			$table->decimal('montant',10,2);
 			$table->dateTime('date');
-			$table->tinyInteger('mode_reglement_id');
+			$table->string('mode_reglement');
 			$table->softDeletes();
             $table->timestamps();
         });

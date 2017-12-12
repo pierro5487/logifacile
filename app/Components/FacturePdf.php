@@ -113,9 +113,9 @@ class FacturePdf extends Fpdf {
 			$this->SetFont('Arial', '', $this->font - 1);
 			$this->SetColor(true);
 			foreach ($totaux['encaissements'] as $encaissement) {
-				$this->Cell(30, $this->cellHeight, $encaissement['date']->format('d/m/Y'), 'B', 0, 'R');
-				$this->Cell(30, $this->cellHeight, strtoupper($encaissement['mode']), 'B', 0, 'R');
-				$this->Cell(30, $this->cellHeight, number_format($encaissement['montant'], 2, ',', ' ') . ' ' . chr(128), 'B', 1, 'R');
+				$this->Cell(25, $this->cellHeight, $encaissement['date']->format('d/m/Y'), 'B', 0, 'C');
+				$this->Cell(40, $this->cellHeight, strtoupper($encaissement['mode_reglement']), 'B', 0, 'C');
+				$this->Cell(25, $this->cellHeight, number_format($encaissement['montant'], 2, ',', ' ') . ' ' . chr(128), 'B', 1, 'C');
 			}
 			$this->ln(10);
 		}
@@ -139,24 +139,42 @@ class FacturePdf extends Fpdf {
 		$this->SetY($yPos);
 		$xPosRight = 110;
 		$this->SetX($xPosRight);
+		$this->SetColor();
+		$this->SetFont('Arial', 'B', $this->font);
 		$this->Cell(60,$this->cellHeight,'Net HT',0,0,'R');
+		$this->SetColor('black');
 		$this->Cell(30,$this->cellHeight,number_format($totaux['totalHT'],2,',',' ').chr(128),0,1,'R');
 		$this->SetX($xPosRight);
+		$this->SetColor();
+		$this->SetFont('Arial', '', $this->font);
 		$this->Cell(60,$this->cellHeight,'Remise HT',0,0,'R');
+		$this->SetColor('black');
 		$this->Cell(30,$this->cellHeight,number_format($totaux['totalRemise'],2,',',' ').chr(128),0,1,'R');
 		$this->SetX($xPosRight);
 		//$this->SetY($yPos+$this->cellHeight);
+		$this->SetColor();
+		$this->SetFont('Arial', '', $this->font);
 		$this->Cell(60,$this->cellHeight,'Total TVA','B',0,'R');
+		$this->SetColor('black');
 		$this->Cell(30,$this->cellHeight,number_format($totaux['totalTvaRemise'],2,',',' ').chr(128),'B',1,'R');
 		$this->SetX($xPosRight);
-		$this->Cell(60,$this->cellHeight,'Total TTC','B',0,'R');
-		$this->Cell(30,$this->cellHeight,number_format($totaux['totalTTC'],2,',',' ').chr(128),'B',1,'R');
+		$this->SetColor();
+		$this->SetFont('Arial', 'B', $this->font+2);
+		$this->Cell(60,$this->cellHeight,'Total TTC',0,0,'R');
+		$this->SetColor('black');
+		$this->Cell(30,$this->cellHeight,number_format($totaux['totalTTC'],2,',',' ').chr(128),0,1,'R');
 		$this->SetX($xPosRight);
+		$this->SetColor();
+		$this->SetFont('Arial', '', $this->font);
 		$this->Cell(60,$this->cellHeight,'Encaissement','B',0,'R');
+		$this->SetColor('black');
 		$this->Cell(30,$this->cellHeight,number_format($totaux['totalEncaissement'],2,',',' ').chr(128),'B',1,'R');
 		$this->SetX($xPosRight);
-		$this->Cell(60,$this->cellHeight,utf8_decode('Net à payer'),'B',0,'R');
-		$this->Cell(30,$this->cellHeight,number_format($totaux['totalTTC'],2,',',' ').chr(128),'B',1,'R');
+		$this->SetColor();
+		$this->SetFont('Arial', 'B', $this->font+2);
+		$this->Cell(60,$this->cellHeight,utf8_decode('Net à payer'),0,0,'R');
+		$this->SetColor('black');
+		$this->Cell(30,$this->cellHeight,number_format($totaux['netAPaye'],2,',',' ').chr(128),0,1,'R');
 	}
 	
 	private function tableHeader(){

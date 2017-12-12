@@ -32,4 +32,9 @@ class FacturesController extends Controller
 		$pdf->totauxFooter($totaux);
 		$pdf->Output();
 	}
+	
+	public function index(){
+		$factures = Facture::paginate(2);
+		return view('factures.index',compact('factures'));
+	}
 }
