@@ -29,10 +29,10 @@ class CreateFactureTable extends Migration
 			$table->string('pays');
 			$table->string('note')->nullable();
 			$table->dateTime('echeance');
-			$table->mediumInteger('fichier_id');
-			$table->dateTime('date_envoi');
-			$table->dateTime('date_validation');
-			$table->string('type_envoi');
+			$table->mediumInteger('fichier_id')->nullable();
+			$table->dateTime('date_envoi')->nullable();
+			$table->dateTime('date_validation')->nullable();
+			$table->string('type_envoi')->nullable();
 			$table->decimal('accompte',10,4)->default(0);
 			$table->decimal('totalHT_precedent',10,4)->default(0);
 			$table->decimal('totalHT',10,4)->default(0);
@@ -40,9 +40,9 @@ class CreateFactureTable extends Migration
 			$table->decimal('totalTTC',10,4)->default(0);
 			$table->decimal('remise',10,4)->default(0);
 			$table->tinyInteger('createur_id');
-			$table->tinyInteger('modificateur_id');
-			$table->tinyInteger('validateur_id');
-			$table->boolean('is_auto_E');
+			$table->tinyInteger('modificateur_id')->nullable();
+			$table->tinyInteger('validateur_id')->nullable();
+			$table->boolean('is_auto_E')->default(0);
 			$table->softDeletes();
 			$table->timestamps();
 		});

@@ -3,10 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Facture extends Model
 {
-	protected $dates = array('date_document');
+	use SoftDeletes;
+	
+	protected $dates = array('date_document','deleted_at');
 	
 	public function Lignes(){
 		return $this->hasMany('App\LigneFacture','document_id','id');
@@ -65,4 +68,64 @@ class Facture extends Model
 		$totaux['netAPaye'] = $totaux['totalTTC'] - $totaux['totalEncaissement'];
 		return $totaux;
 	}
+	
+	/*-----------------------------------------------*/
+	/*                     scope                     */
+	/*-----------------------------------------------*/
+	
+	/**
+	 * @param $query
+	 * @return mixed
+	 * rrecherche suelement les brouillons
+	 */
+	public function scopeBrouillon($query){
+		return $query->where('etat','brouillon');
+	}
+	
+	/**
+	 * @param $query
+	 * @return mixed
+	 * rrecherche suelement les document validés
+	 */
+	public function scopeValide($query){
+		return $query->where('etat','validé');
+	}
+	
+	/**
+	 * @param $query
+	 * @return mixed
+	 * rrecherche suelement les docs de type facture
+	 */
+	public function scopeGetFacture($query){
+		return $query->where('type','facture');
+	}
+	
+	/**
+	 * @param $query
+	 * @return mixed
+	 * rrecherche suelement les docs de type avoir
+	 */
+	public function scopeGetAvoir($query){
+		return $query->where('type','avoir');
+	}
+	
+	/**
+	 * @param $query
+	 * @return mixed
+	 * rrecherche suelement les docs de type devis
+	 */
+	public function scopeGetDevis($query){
+		return $query->where('type','devis');
+	}
+	
+	/**
+	 * @param $query
+	 * @param $idClient
+	 * @return mixed
+	 * retourne seulement les docs appartenant au client donné
+	 */
+	public function scopeForClient($query,$idClient){
+		return $query->where('client_id',$idClient);
+	}
+	
 }

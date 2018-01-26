@@ -155,6 +155,38 @@
                 </ul>
             </li>
         </ul>
+        <ul class="nav navbar-right top-nav">
+            <li class="dropdown">
+                @if(Session::has('client'))
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-user"></i>&nbsp;
+                        {{Session::get('client.fullName')}}
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{{route('clients.choixClient')}}"><i class="fa fa-fw fa-list"></i>Changer</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-search"></i>Voir Client</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-gear"></i>modifier Client</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-envelope"></i>Email</a>
+                        </li>
+                    </ul>
+                @else
+                    <a href="{{ route('clients.choixClient',['redirect' => 'home']) }}" >
+                        <i class="fa fa-user"></i>
+                        &nbsp;
+                        Choisir un client
+                    </a>
+                @endif
+
+            </li>
+        </ul>
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">

@@ -16,6 +16,9 @@ class Client extends Model
 		'type',
 	];
 	
+	protected $appends = ['fullName'];
+	
+	
 	public function getFullNameAttribute() {
 		return mb_strtoupper($this->lastname) . ' ' . ucfirst($this->firstname);
 	}
