@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>SB Admin - Bootstrap Admin Template</title>
 
@@ -38,7 +40,7 @@
 <body>
 
 <div id="wrapper">
-
+    @include('elements/loader/loader_fullpage')
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -201,12 +203,12 @@
         <div class="container-fluid">
             <div class="row">
                 @include('flash')
-                <div class="col-lg-8 col-lg-offset-2">
+                <div class="col-lg-12">
                     <h1 class="page-header">
                         @yield('title')
                     </h1>
                 </div>
-                <div class="col-lg-8 col-lg-offset-2">
+                <div class="col-lg-12">
                     @yield('content')
                 </div>
             </div>
@@ -224,6 +226,7 @@
 
 <!-- Bootstrap Core JavaScript -->
 <script src="{{asset('js/bootstrap.min.js')}}"defer></script>
+<script src="{{asset('js/defaut.js')}}"></script>
 
 <!-- Morris Charts JavaScript -->
 <!--<script src="{{asset('js/plugins/morris/raphael.min.js')}}" defer></script>

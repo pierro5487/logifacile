@@ -17,4 +17,11 @@ class FacturePolicy
 		}
 		return false;
 	}
+	
+	public function edit(User $user,Facture $facture){
+		if($facture->etat == 'brouillon'){
+			return true;
+		}
+		return false;
+	}
 }

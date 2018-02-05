@@ -7,10 +7,8 @@ use App\Components\FacturePdf;
 use App\Facture;
 use App\GroupeLigne;
 use Carbon\Carbon;
-use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 
 class FacturesController extends Controller
 {
@@ -23,46 +21,35 @@ class FacturesController extends Controller
 			// et si il a des factures non payées
 			$facturesNonReglees = [];
 			//si pas de cas en attente on créer la facture
-			if(empty($brouillons) && empty($facturesNonReglees)){
-				//todo création facture
+			if(count($brouillons) == 0 && count($facturesNonReglees) == 0){
+				//on verifie que le client existe
+				$facture = new Facture();
+				$facture->date_document = Carbon::now('Europe/London');
+				$facture->type = 'facture';
+				$facture->etat = 'brouillon';
+				$facture->numero = $facture->createNum();
+				$facture->situation = 1;
+				$facture->client_id = $client->id;
+				$facture->nom_client = $client->fullName;
+				$facture->adresse = $client->adress;
+				$facture->adresse_comp = $client->adresse_comp;
+				$facture->code_postal = $client->city->CP;
+				$facture->ville = $client->city->VILLE;
+				$facture->pays = $client->city->CODEPAYS;
+				$facture->echeance = Carbon::now('Europe/london');
+				$facture->date_document = Carbon::now('Europe/london');
+				$facture->createur_id = Auth::id();
+				$facture->is_auto_E = false;
+				if ($facture->save()) {
+					return redirect()->route('factures.edit', $facture->id);
+				}else{
+					$request->session()->flash('error','Une erreur est survenue pendant la création de la facture,veuillez réessayer');
+				}
 			}
 			return view('factures.addFacture',compact('brouillons','facturesNonReglees'));
 		}else{
 			//si non on redirige vers une page de choix
 			return redirect()->route('clients.choixClient',['redirect'=>'addFacture']);
-		}
-	}
-	
-	public function create(){
-		if(!empty($idClient)){
-			//on verifie que le client existe
-			$client = Client::findOrFail($idClient)->with('city')->first();
-			$facture = new Facture();
-			$facture->date_document = Carbon::now('Europe/London');
-			$facture->etat ='brouillon';
-			$facture->numero = '';
-			$facture->situation = 1;
-			$facture->type = 'facture';
-			$facture->client_id = $idClient;
-			$facture->nom_client = $client->fullName;
-			$facture->adresse = $client->adress;
-			$facture->adresse_comp = $client->adresse_comp;
-			$facture->code_postal = $client->city->CP;
-			$facture->ville = $client->city->VILLE;
-			$facture->pays = $client->city->CODEPAYS;
-			$facture->echeance = Carbon::now('Europe/london');
-			$facture->date_document = Carbon::now('Europe/london');
-			$facture->createur_id = Auth::id();
-			$facture->is_auto_E = false;
-			if(!$facture->save()){
-				return redirect()->route('factures.edit',$facture->id);
-			}else{
-				Session::flash('error','Une erreur est survenue pendant la création de la facture,veuillez réessayer');
-				Redirect::back();
-			}
-		}else{
-			
-			return view('factures.add');
 		}
 	}
 	
@@ -98,5 +85,12 @@ class FacturesController extends Controller
 			$request->session()->flash('error','Une erreur est survenue pendant la supression du document,veuillez réessayer');
 		}
 		return redirect()->back();
+	}
+	
+	public function edit($idFacture){
+		$facture = Facture::where('id',$idFacture)->with('Lignes')->with('groupLignes')->first();
+		$totaux = $facture->getTotaux();
+		$this->authorize('edit',$facture);
+		return view('factures.edit',compact('facture','totaux'));
 	}
 }

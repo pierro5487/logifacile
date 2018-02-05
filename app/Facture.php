@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -11,8 +12,12 @@ class Facture extends Model
 	
 	protected $dates = array('date_document','deleted_at');
 	
-	public function Lignes(){
+	public function lignes(){
 		return $this->hasMany('App\LigneFacture','document_id','id');
+	}
+	
+	public function groupLignes(){
+		return $this->hasMany('App\GroupeLigne','document_id','id');
 	}
 	
 	public function reglements(){
@@ -67,6 +72,32 @@ class Facture extends Model
 		}
 		$totaux['netAPaye'] = $totaux['totalTTC'] - $totaux['totalEncaissement'];
 		return $totaux;
+	}
+	
+	/**
+	 * @return string
+	 * retourn un numero de facture unique
+	 */
+	public function createNum(){
+		$date = Carbon::now();
+		if($this->type == 'facture'){
+			$prefix = 'FA';
+		}else if($this->type == 'avoir'){
+			$prefix = 'AV';
+		}else{
+			$prefix = 'DE';
+		}
+		$prefix .= '-'.$date->format('ymd');
+		$count = $this->where('numero','like',$prefix.'%')->count();
+		
+		do{
+			$count++;
+			if($count < 10 ){
+				$count = '0'.$count;
+			}
+		}while($this->where('numero','like',$prefix.$count)->count() != 0);
+		
+		return $prefix.$count;
 	}
 	
 	/*-----------------------------------------------*/

@@ -58,3 +58,8 @@ Route::post('/factures/delete/{facture}','FacturesController@delete')->name('fac
 
 /*----reglement----*/
 Route::get('/reglements/ajout/{facture}','ReglementsController@ajout')->name('reglements.ajout')->where('facture','[0-9]*');
+
+/*----lignefacture-----*/
+Route::post('/ligneFactures/addDecalaminage','LigneFacturesController@addDecalaminage')->name('ligneFactures.addDecalaminage');
+Route::post('/ligneFactures/addCustomLigne','LigneFacturesController@addCustomLigne')->name('ligneFactures.addCustomLigne');
+Route::post('/ligneFactures/deleteLigne','LigneFacturesController@deleteLigne')->name('ligneFactures.deleteLigne');

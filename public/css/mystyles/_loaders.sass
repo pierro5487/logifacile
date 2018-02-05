@@ -1,0 +1,31 @@
+#ajax-loader-full-page,#ajax-loader-modal
+  .loaderTexte
+    font-size: 20px
+    text-align: center
+    font-weight: bold
+    margin-top: 15px
+  &>div
+    height: 100%
+    width: 100%
+    position: absolute
+    top: 0
+    left: 0
+    z-index: 99999
+    &>div
+      background-color: white
+      opacity: 0.9
+      width: 100px
+      height: 100px
+      text-align: center
+      line-height: 92px
+      margin: auto
+      margin-top: 20%
+      box-shadow:  0px 0px 58px 0px rgba(0,0,0,1)
+      border-radius: 5px
+  &>div:first-of-type
+    background-color: white
+    opacity: 0.3
+
+#ajax-loader-full-page
+  &>div
+    position: fixed
