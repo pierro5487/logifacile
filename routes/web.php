@@ -62,4 +62,5 @@ Route::get('/reglements/ajout/{facture}','ReglementsController@ajout')->name('re
 /*----lignefacture-----*/
 Route::post('/ligneFactures/addDecalaminage','LigneFacturesController@addDecalaminage')->name('ligneFactures.addDecalaminage');
 Route::post('/ligneFactures/addCustomLigne','LigneFacturesController@addCustomLigne')->name('ligneFactures.addCustomLigne');
+Route::post('/ligneFactures/addMontage','LigneFacturesController@addMontage')->name('ligneFactures.addMontage');
 Route::post('/ligneFactures/deleteLigne','LigneFacturesController@deleteLigne')->name('ligneFactures.deleteLigne');

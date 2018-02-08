@@ -17,7 +17,7 @@
                         <form>
                             <div class="form-group col-md-6">
                                 {!! Form::label('libelleCustom', 'Libelle',['class'=> 'control-label']) !!}
-                                {!! Form::text('libelleCustom',1,['class' => 'form-control']) !!}
+                                {!! Form::text('libelleCustom','',['class' => 'form-control']) !!}
                             </div>
                             <div class="form-group col-md-6">
                                 {!! Form::label('quantiteCustom', 'Quantite',['class'=> 'control-label']) !!}
@@ -49,7 +49,7 @@
         modalCustomErreur = $('#modalCustomErreur');
 
         addCustomBtn.on('click',function(){
-
+            modalCustomErreur.empty();
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -81,7 +81,7 @@
                         }
                     }else{
                         //on affiche la liste d'erreurs
-                        modalCustomErreur.append(formatListeErreur(res));
+                        modalCustomErreur.empty().append(formatListeErreur(res));
 
                     }
                 },

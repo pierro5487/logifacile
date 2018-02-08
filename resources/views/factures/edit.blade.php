@@ -97,7 +97,7 @@
                         </div>
                         <div class="divider col-xs-12 hidden-sm hidden-md hidden-lg" style="height: 10px"></div>
                         <div class="col col-xs-6 col-sm-3 text-center">
-                            <button title="ajouter un montage pneumatique" class="btn btn-info btn-add-ligne" disabled>
+                            <button title="ajouter un montage pneumatique" class="btn btn-info btn-add-ligne" data-toggle="modal" data-target="#modalMontage">
                                 <i class="fa fa-plus"></i>
                                 <i class="fa fa-life-ring"></i>
                             </button>
@@ -219,4 +219,5 @@
     </script>
     @include('elements/factures/modalDecalaminage')
     @include('elements/factures/modalCustom')
+    @include('elements/factures/modalMontage')
 @endsection

@@ -29,6 +29,11 @@ class LigneFacture extends Model
 		return $this->hasOne('App\Facture','id','document_id');
 	}
 	
+	/**
+	 * @param $idGroupe
+	 * @return int
+	 * retourne le total d'un groupe de lignes
+	 */
 	public function getTotalGroupe($idGroupe){
 		$total = 0;
 		$lignes = $this->where('groupe_lignes_id',$idGroupe)->get();

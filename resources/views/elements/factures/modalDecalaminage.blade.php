@@ -45,7 +45,7 @@
         modalDecalaminageErreur = $('#modalDecalaminageErreur');
 
         addDecalaminageBtn.on('click',function(){
-
+            modalDecalaminageErreur.empty();
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -79,7 +79,7 @@
                     }else{
                         //on affiche la liste d'erreurs
                         console.log(res);
-                        modalDecalaminageErreur.append(formatListeErreur(res));
+                        modalDecalaminageErreur.empty().append(formatListeErreur(res));
 
                     }
                 },

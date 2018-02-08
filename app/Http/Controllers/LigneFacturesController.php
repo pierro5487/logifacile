@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AddCustomLigneRequest;
 use App\Http\Requests\AddDecalaminageRequest;
+use App\Http\Requests\AddMontageRequest;
 use App\LigneFacture;
+use App\Montage;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,6 +43,38 @@ class LigneFacturesController extends Controller
 			'prix_unitaire_HT' 	=> $data['prix'],
 			'quantite'			=> $data['quantite'],
 			'libelle'			=> $data['libelle'],
+			'document_id'		=> $data['idFacture'],
+			'date_document'		=> Carbon::now(),
+			'createur_id'		=> Auth::id()
+		);
+		return $this->saveLigne($newLigne);
+	}
+	
+	public function addMontage(AddMontageRequest $request){
+		$data = $request->all();
+		//on recupère le prix
+		$price = Montage::montagePrice($data)->first();
+		//on prepare le libelle
+		$libelle = $price->getLibelle();
+		//on regarde combien de ligne faut il creer
+		if($data['quantite'] == 1){
+			if($data['situation'] == 'AVAR'){
+				return json_encode(array('situation' => array('Pour une quantite 1 ,la situation ne peut être que AV ou AR')));
+			}
+			$libelle .= ' '.$data['situation'];
+			
+		}elseif($data['quantite'] == 2){
+			$libelle .= ' '.$data['situation'];
+		}else{
+			$libelle .= ' AVAR';
+		}
+		$newLigne = array(
+			'groupe_lignes_id'	=> $data['idGroupe'],
+			'remise'			=> 0,
+			'taux_tva'			=> 0,
+			'prix_unitaire_HT' 	=> $price->valeur,
+			'quantite'			=> $data['quantite'],
+			'libelle'			=> $libelle,
 			'document_id'		=> $data['idFacture'],
 			'date_document'		=> Carbon::now(),
 			'createur_id'		=> Auth::id()
