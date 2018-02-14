@@ -31,6 +31,7 @@ class Facture extends Model
 		$totaux['totalRemise'] = 0;
 		$totaux['totalTTC'] = 0;
 		$totaux['totalEncaissement'] = 0 ;
+		$totaux['totalTVA'] = 0;
 		$totaux['tva'] = array();
 		foreach ($this->Lignes as $ligne){
 			//calcul du montant ht de la ligne
@@ -60,6 +61,7 @@ class Facture extends Model
 			}
 			$montantTva = $montantGlobaleHTRemise*$ligne->taux_tva/100;
 			$totaux['totalTvaRemise'] += $montantTva;
+			$totaux['totalTVA'] += $montantTva;
 			$totaux['tva'][$ligne->taux_tva] = array(
 				'montant'	=> $montantTva,
 				'base'		=> $montantGlobaleHTRemise

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddMontageRequest extends FormRequest
+class DeleteHeaderGroupeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,18 +23,9 @@ class AddMontageRequest extends FormRequest
      */
     public function rules()
     {
-		return [
-			'quantite' 	=> 'required|integer|min:1|max:4',
+        return [
 			'idGroupe'	=> 'required|exists:groupe_lignes,id',
 			'idFacture'	=> 'required|exists:factures,id',
-//			'valve'		=> 'booleen',
-//			'equilibrage'	=> 'booleen',
-			'size'		=> 'required|integer|min:14|max:21',
-			'situation' => 'required|',
-//			'alu'		=> 'boolean',
-//			'truck'		=> 'boolean',
-//			'runflat'	=> 'boolean'
-			
-		];
+        ];
     }
 }

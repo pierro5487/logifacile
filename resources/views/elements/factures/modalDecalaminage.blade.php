@@ -72,6 +72,7 @@
                         if(res.success){
                             //sweet alert ok
                             addLigneToGroupe(idGroupeEnCours,res.ligne,res.sousTotalGroupe);
+                            updateTotaux(res.totaux);
                             $('#modalDecalaminage').modal('hide');
                         }else{
                             alert(res.message);

@@ -28,7 +28,7 @@ class AddCustomLigneRequest extends FormRequest
 			'prix'		=> 'required|numeric|min:1',
 			'remise'	=> 'required|numeric',
 			'libelle'	=> 'required',
-			'idGroupe'	=> 'required|exists:lignesfactures,id',
+			'idGroupe'	=> 'required|exists:groupe_lignes,id',
 			'idFacture'	=> 'required|exists:factures,id'
 		];
 	}

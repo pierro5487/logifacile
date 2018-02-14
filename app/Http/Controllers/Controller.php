@@ -33,4 +33,16 @@ class Controller extends BaseController
 		}
 		return $liste;
 	}
+	
+	public function formatAutoList($autos){
+		$autos = $autos->toArray();
+		$liste = [];
+		foreach ($autos as $auto){
+			$nom = $auto['marque']['nom'].' '.$auto['modele']['nom'].' '.$auto['immat'];
+			$firstLetter = strtoupper(substr($nom,0,1));
+			$option = $nom;
+			$liste[$firstLetter][$auto['id']] = $option;
+		}
+		return $liste;
+	}
 }

@@ -126,6 +126,7 @@
                         if(res.success){
                             //sweet alert ok
                             addLigneToGroupe(idGroupeEnCours,res.ligne,res.sousTotalGroupe);
+                            updateTotaux(res.totaux);
                             $('#modalMontage').modal('hide');
                         }else{
                             alert(res.message);

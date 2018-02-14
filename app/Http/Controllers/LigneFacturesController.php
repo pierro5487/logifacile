@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Facture;
 use App\Http\Requests\AddCustomLigneRequest;
 use App\Http\Requests\AddDecalaminageRequest;
 use App\Http\Requests\AddMontageRequest;
+use App\Http\Requests\UpdateAutoRequest;
+use App\Http\Requests\UpdateLigneRequest;
 use App\LigneFacture;
 use App\Montage;
 use Carbon\Carbon;
@@ -92,10 +95,29 @@ class LigneFacturesController extends Controller
 			//on créer la ligne
 			if($ligne = LigneFacture::create($newLigne)){
 				$sousTotalGroupe = $ligne->getTotalGroupe($ligne->groupe_lignes_id);
-				return json_encode(array('success' => true,'ligne' => $ligne,'sousTotalGroupe' => $sousTotalGroupe));
+				$facture = Facture::where('id',$ligne->document_id)->with('Lignes')->first();
+				$totaux = $facture->getTotaux();
+				return json_encode(array('success' => true,'ligne' => $ligne,'sousTotalGroupe' => $sousTotalGroupe,'totaux' => $totaux));
 			}
 			return json_encode(array('success' => false,'message' => 'Une erreur est survenue pendant l\'enregistrement'));
 		}
+	}
+	
+	public function updateLigne(UpdateLigneRequest $request){
+		$data = $request->all();
+		$ligne = LigneFacture::where('id',$data['idLigne'])->first();
+		$ligne->libelle = $data['libelle'];
+		$ligne->remise = $data['remise'];
+		$ligne->prix_unitaire_HT = $data['prix'];
+		$ligne->quantite = $data['quantite'];
+//		$ligne->taux_tva = $data['tva'];
+		if($ligne->save()){
+			$sousTotalGroupe = $ligne->getTotalGroupe($ligne->groupe_lignes_id);
+			$facture = Facture::where('id',$ligne->document_id)->with('Lignes')->first();
+			$totaux = $facture->getTotaux();
+			return json_encode(array('success' => true,'ligne' => $ligne,'sousTotalGroupe' => $sousTotalGroupe,'totaux' => $totaux));
+		}
+		return json_encode(array('success' => false,'message' => 'Une erreur est survenue pendant l\'enregistrement'));
 	}
 	
 	/**
@@ -110,7 +132,9 @@ class LigneFacturesController extends Controller
 			$this->authorize('delete',$ligne->document);
 			if($ligne->delete()){
 				$sousTotalGroupe = $ligne->getTotalGroupe($ligne->groupe_lignes_id);
-				return json_encode(array('success' => true,'idGroupe' => $ligne->groupe_lignes_id,'sousTotalGroupe' => $sousTotalGroupe));
+				$facture = Facture::where('id',$ligne->document_id)->with('Lignes')->first();
+				$totaux = $facture->getTotaux();
+				return json_encode(array('success' => true,'idGroupe' => $ligne->groupe_lignes_id,'sousTotalGroupe' => $sousTotalGroupe,'totaux' => $totaux));
 			}else{
 				return json_encode(array('success' => false,'message'=> 'Une erreur s\'est produite pendant la suppression'));
 			}

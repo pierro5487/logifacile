@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Auto;
 use App\Client;
 use App\Components\FacturePdf;
 use App\Facture;
@@ -87,10 +88,13 @@ class FacturesController extends Controller
 		return redirect()->back();
 	}
 	
-	public function edit($idFacture){
+	public function edit($idFacture,Request $request){
 		$facture = Facture::where('id',$idFacture)->with('Lignes')->with('groupLignes')->first();
 		$totaux = $facture->getTotaux();
+		//on récupère les autos de ce client
+		$client = $request->session()->get('client');
+		$autos = $this->formatAutoList(Auto::where('client_id',$client->id)->with('marque')->with('modele')->get(),'immat');
 		$this->authorize('edit',$facture);
-		return view('factures.edit',compact('facture','totaux'));
+		return view('factures.edit',compact('facture','totaux','autos'));
 	}
 }

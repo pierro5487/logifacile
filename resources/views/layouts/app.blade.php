@@ -25,6 +25,8 @@
     <!-- mon css -->
     <link href="{{asset('css/default.css')}}" rel="stylesheet">
 
+    <link href="{{ asset('css/bootstrap-datepicker3.min.css')}}" rel="stylesheet">
+
     <!-- Custom Fonts -->
     <link href="{{asset('font-awesome-4.7.0/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
     <script src="{{asset('js/jquery.js')}}"></script>
@@ -226,6 +228,8 @@
 
 <!-- Bootstrap Core JavaScript -->
 <script src="{{asset('js/bootstrap.min.js')}}"defer></script>
+<script src="{{asset('js/bootstrap-datepicker.min.js')}}"defer></script>
+<script src="{{asset('js/bootstrap-datepicker.fr.js')}}"defer></script>
 <script src="{{asset('js/defaut.js')}}"></script>
 
 <!-- Morris Charts JavaScript -->

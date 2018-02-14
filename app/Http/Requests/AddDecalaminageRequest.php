@@ -27,7 +27,7 @@ class AddDecalaminageRequest extends FormRequest
             'quantite' 	=> 'required|integer|min:1',
 			'prix'		=> 'required|numeric|min:1',
 			'remise'	=> 'required|numeric',
-			'idGroupe'	=> 'required|exists:lignesfactures,id',
+			'idGroupe'	=> 'required|exists:groupe_lignes,id',
 			'idFacture'	=> 'required|exists:factures,id'
         ];
     }
