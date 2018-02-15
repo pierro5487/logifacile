@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Facture extends Model
 {
 	use SoftDeletes;
+	protected $totaux;
 	
 	protected $dates = array('date_document','deleted_at');
 	
@@ -23,6 +24,13 @@ class Facture extends Model
 	public function reglements(){
 		return $this->hasMany('App\Reglement','document_id','id');
 	}
+	
+	public function getTotauxAttribute()
+	{
+		$totaux = $this->getTotaux();
+		return $totaux;
+	}
+	
 	
 	public function getTotaux($remiseGlobale = 0){
 		$totaux['totalHT'] = 0;          	// total HT hors remise
@@ -72,7 +80,7 @@ class Facture extends Model
 		foreach ($totaux['encaissements'] as $encaissement) {
 			$totaux['totalEncaissement'] += $encaissement['montant'];
 		}
-		$totaux['netAPaye'] = $totaux['totalTTC'] - $totaux['totalEncaissement'];
+		$totaux['solde'] = $totaux['netAPaye'] = $totaux['totalTTC'] - $totaux['totalEncaissement'];
 		return $totaux;
 	}
 	

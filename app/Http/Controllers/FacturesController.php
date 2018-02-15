@@ -72,7 +72,7 @@ class FacturesController extends Controller
 	}
 	
 	public function index(){
-		$factures = Facture::paginate(2);
+		$factures = Facture::paginate(10);
 		return view('factures.index',compact('factures'));
 	}
 	
@@ -96,5 +96,24 @@ class FacturesController extends Controller
 		$autos = $this->formatAutoList(Auto::where('client_id',$client->id)->with('marque')->with('modele')->get(),'immat');
 		$this->authorize('edit',$facture);
 		return view('factures.edit',compact('facture','totaux','autos'));
+	}
+	
+	public function valide($idFacture,Request $request){
+		$facture = Facture::find($idFacture);
+		$this->authorize('valide',$facture);
+		//on verifei que la facture ne soit pas à zéro
+		if($facture->Totaux['totalHT'] <=  0){
+			$request->session()->flash('error','Impossible de valider une facture à 0');
+			return redirect()->back();
+		}
+		//on valide la facture
+		$facture->etat = 'validé';
+		$facture->validateur_id = Auth::id();
+		$facture->date_validation = Carbon::now();
+		if($facture->save()){
+			return redirect()->route('reglements.add',$idFacture);
+		}
+		$request->session()->flash('error','Une erreur est survenue pendant la validation de la facture');
+		return redirect()->back();
 	}
 }

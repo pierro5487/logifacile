@@ -24,4 +24,15 @@ class FacturePolicy
 		}
 		return false;
 	}
+	
+	public function valide(){
+		return true;
+	}
+	
+	public function ajoutReglement(User $user,Facture $facture){
+		if($facture->etat == 'validé'){
+			return true;
+		}
+		return false;
+	}
 }

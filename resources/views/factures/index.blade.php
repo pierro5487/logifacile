@@ -21,7 +21,7 @@
                     <td>{!! $facture->type !!}</td>
                     <td>{!! $facture->numero !!}</td>
                     <td>{!! $facture->nom_client !!}</td>
-                    <td>{!! number_format($facture->totalTTC,2,',',' ') !!}</td>
+                    <td>{!! number_format($facture->totaux['totalHT'],2,',',' ') !!}</td>
                     <td>
                         <a class="btn btn-success" title="Voir la facture" href="{{route('factures.visualise',$facture->id)}}" target="_blank">
                             <i class="fa fa-search"></i>

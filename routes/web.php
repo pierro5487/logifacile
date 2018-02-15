@@ -70,3 +70,6 @@ Route::post('/ligneFactures/updateLigne','LigneFacturesController@updateLigne')-
 /*---grouppeLigne-------*/
 Route::post('/groupeLignes/deleteHeader','GroupeLignesController@deleteHeader')->name('groupeLignes.deleteHeader');
 Route::post('/groupeLignes/addAutoHeader','GroupeLignesController@addAutoHeader')->name('groupeLignes.addAutoHeader');
+
+/*-----reglement------*/
+Route::get('/reglements/add/{facture}','ReglementsController@add')->name('reglements.add')->where('facture','[0-9]*');
