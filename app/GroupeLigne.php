@@ -6,7 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class GroupeLigne extends Model
 {
-	public $dates = array('date_document');
+	
+	protected $fillable = [
+		'document_id',
+		'createur_id',
+		'no_header',
+		'auto_id',
+		'immatriculation',
+		'kilometrage',
+		'date_document',
+	];
+	
+	protected $dates = array('date_document');
 	
     public function ligne(){
 		return $this->hasMany('App\LigneFacture','groupe_lignes_id','id');

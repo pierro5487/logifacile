@@ -73,3 +73,4 @@ Route::post('/groupeLignes/addAutoHeader','GroupeLignesController@addAutoHeader'
 
 /*-----reglement------*/
 Route::get('/reglements/add/{facture}','ReglementsController@add')->name('reglements.add')->where('facture','[0-9]*');
+Route::post('/reglements/create/{facture}','ReglementsController@create')->name('reglements.create')->where('facture','[0-9]*');

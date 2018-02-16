@@ -6,6 +6,7 @@ use App\Auto;
 use App\GroupeLigne;
 use App\Http\Requests\addAutoHeaderRequest;
 use App\Http\Requests\DeleteHeaderGroupeRequest;
+use Carbon\Carbon;
 
 class GroupeLignesController extends Controller{
 	
@@ -37,6 +38,7 @@ class GroupeLignesController extends Controller{
 			$groupe->immatriculation = $auto->immat;
 			$groupe->auto_string = $auto->Marque->nom.' '.$auto->Modele->nom;
 			$groupe->kilometrage = $data['kilometrage'];
+			$groupe->date_document = Carbon::createFromFormat('d/m/Y', $data['dateAddAuto'])->format('Y-m-d');
 			if($groupe->save()){
 				return json_encode(array('success' => true,'message' => 'Auto ajouté à la facture','auto' => $auto));
 			}

@@ -42,6 +42,13 @@ class FacturesController extends Controller
 				$facture->createur_id = Auth::id();
 				$facture->is_auto_E = false;
 				if ($facture->save()) {
+					//on creer le groupe
+					$groupe = new GroupeLigne();
+					$groupe->document_id = $facture->id;
+					$groupe->createur_id = Auth::id();
+					$groupe->no_header = '1';
+					$groupe->date_document = Carbon::now();
+					$groupe->save();
 					return redirect()->route('factures.edit', $facture->id);
 				}else{
 					$request->session()->flash('error','Une erreur est survenue pendant la création de la facture,veuillez réessayer');

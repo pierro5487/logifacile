@@ -23,6 +23,9 @@
                     <td>{!! $facture->nom_client !!}</td>
                     <td>{!! number_format($facture->totaux['totalHT'],2,',',' ') !!}</td>
                     <td>
+                        <a class="btn btn-info" title="Ajouter un réglement" href="{{route('reglements.add',$facture->id)}}">
+                            <i class="fa fa-money"></i>
+                        </a>
                         <a class="btn btn-success" title="Voir la facture" href="{{route('factures.visualise',$facture->id)}}" target="_blank">
                             <i class="fa fa-search"></i>
                         </a>
