@@ -68,7 +68,7 @@
                 <div class="control-feedback">{{ ($errors->has('mode_reglement'))?$errors->first('mode_reglement'):''}}</div>
             </div>
             <div class="col-xs-12 text-center">
-                <a class="btn btn-danger" href="{{ URL::previous() }}">Annuler</a>
+                <a class="btn btn-danger" href="{{ (URL::previous() != 'http://jpms.localhost/factures/edit/'.$facture->id)?URL::previous():route('factures.index') }}">Annuler</a>
                 {!! Form::submit('Enregistrer',['class' => 'btn btn-success','id'=>'submitBoutton']) !!}
             </div>
             {!! Form::close() !!}

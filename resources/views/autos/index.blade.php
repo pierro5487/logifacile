@@ -24,8 +24,8 @@
             @forelse($autos as $auto)
                 <tr>
                     <td>{{$auto->immat}}</td>
-                    <td>{{$auto->marque->nom}}</td>
-                    <td>{{$auto->modele->nom}}</td>
+                    <td>{{$auto->Marque->nom}}</td>
+                    <td>{{$auto->Modele->nom}}</td>
                     <td>{{!empty($auto->proprietaire)?$auto->proprietaire->fullName:'-'}}</td>
                     <td>
                         <a href="{{route('autos.edit',$auto->id)}}" class="btn btn-warning" title="Modifier cet auto">

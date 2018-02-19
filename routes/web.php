@@ -74,3 +74,17 @@ Route::post('/groupeLignes/addAutoHeader','GroupeLignesController@addAutoHeader'
 /*-----reglement------*/
 Route::get('/reglements/add/{facture}','ReglementsController@add')->name('reglements.add')->where('facture','[0-9]*');
 Route::post('/reglements/create/{facture}','ReglementsController@create')->name('reglements.create')->where('facture','[0-9]*');
+
+/*-----marques--------*/
+Route::get('/marques/index/','MarquesController@index')->name('marques.index');
+Route::get('/marques/edit/{marque}','MarquesController@edit')->name('marques.edit')->where('marques','[0-9]*');
+Route::post('/marques/edit/{marque}','MarquesController@edit')->name('marques.edit')->where('marques','[0-9]*');
+Route::get('/marques/add/','MarquesController@add')->name('marques.add');
+Route::post('/marques/create/','MarquesController@create')->name('marques.create');
+
+/*-----modeles--------*/
+Route::get('/modeles/index/','ModelesController@index')->name('modeles.index');
+Route::get('/modeles/edit/{modele}','ModelesController@edit')->name('modeles.edit')->where('modele','[0-9]*');
+Route::post('/modeles/update/{modele}','ModelesController@update')->name('modeles.update')->where('modele','[0-9]*');
+Route::get('/modeles/add/','ModelesController@add')->name('modeles.add');
+Route::post('/modeles/create/','ModelesController@create')->name('modeles.create');

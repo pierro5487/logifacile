@@ -21,6 +21,12 @@
         <li>
             <a href="{{route('autos.add')}}">Ajouter</a>
         </li>
+        <li>
+            <a href="{{route('marques.index')}}">Marques auto</a>
+        </li>
+        <li>
+            <a href="{{route('modeles.index')}}">Modèles auto</a>
+        </li>
     </ul>
 </li>
 <!--<li>
