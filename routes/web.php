@@ -31,9 +31,12 @@ Route::get('/clients/searchcp','ClientsController@searchCP')->name('clients.sear
 Route::get('/clients/edit/{client}','ClientsController@edit')->name('clients.edit')->where('client','[0-9]*');
 Route::post('/clients/update/{client}','ClientsController@update')->name('client.update')->where('client','[0-9]*');
 Route::get('/autos/searchclient','ClientsController@searchClient')->name('autos.searchClient');
+Route::get('/clients/upload/','ClientsController@upload')->name('clients.upload');
+Route::post('/clients/upload/','ClientsController@upload')->name('clients.upload');
 
 /*----code postal----*/
-Route::get('/cp/search','CodePostalController@Search')->name('codePostal.search');
+//Route::get('/cp/search','CodePostalController@Search')->name('codePostal.search');
+Route::post('/cp/add','CpController@add')->name('cps.add');
 
 /*--------autos----------*/
 Route::get('/autos/ajout/{client?}','AutosController@add')->name('autos.add')->where('client','[0-9]*');
@@ -42,6 +45,8 @@ Route::get('/autos/','AutosController@index')->name('autos.index');
 Route::get('/autos/edit/{auto}','AutosController@edit')->name('autos.edit')->where('auto','[0-9]*');
 Route::post('/autos/update/{auto}','AutosController@update')->name('auto.update')->where('auto','[0-9]*');
 Route::get('/autos/searchauto','AutosController@searchAuto')->name('autos.searchAuto');
+Route::get('/autos/upload/','AutosController@upload')->name('autos.upload');
+Route::post('/autos/upload/','AutosController@upload')->name('autos.upload');
 
 /*-------modeles-----*/
 Route::get('/modeles/getModelesForMarque','ModelesController@getModelesForMarque')->name('models.getModelesForMarque');
@@ -81,6 +86,8 @@ Route::get('/marques/edit/{marque}','MarquesController@edit')->name('marques.edi
 Route::post('/marques/edit/{marque}','MarquesController@edit')->name('marques.edit')->where('marques','[0-9]*');
 Route::get('/marques/add/','MarquesController@add')->name('marques.add');
 Route::post('/marques/create/','MarquesController@create')->name('marques.create');
+Route::get('/marques/upload/','MarquesController@upload')->name('marques.upload');
+Route::post('/marques/upload/','MarquesController@upload')->name('marques.upload');
 
 /*-----modeles--------*/
 Route::get('/modeles/index/','ModelesController@index')->name('modeles.index');
@@ -88,3 +95,5 @@ Route::get('/modeles/edit/{modele}','ModelesController@edit')->name('modeles.edi
 Route::post('/modeles/update/{modele}','ModelesController@update')->name('modeles.update')->where('modele','[0-9]*');
 Route::get('/modeles/add/','ModelesController@add')->name('modeles.add');
 Route::post('/modeles/create/','ModelesController@create')->name('modeles.create');
+Route::get('/modeles/upload/','ModelesController@upload')->name('modeles.upload');
+Route::post('/modeles/upload/','ModelesController@upload')->name('modeles.upload');

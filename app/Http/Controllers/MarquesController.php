@@ -45,4 +45,21 @@ class MarquesController extends Controller{
 		}
 		return view('marques.edit',compact('marque'));
 	}
+	
+	public function upload(Request $request){
+		if($request->isMethod('post')){
+			$data = $request->all();
+			$file = $data['file'];
+			$pathInfo = pathinfo($file);
+			$fichierCsv = fopen($pathInfo['dirname'].'/'.$pathInfo['basename'],'r');
+			while(($ligne = fgetcsv($fichierCsv)) !== false){
+				$marque  = new Marque();
+				$marque->id = $ligne[0];
+				$marque->nom = $ligne[1];
+				$marque->save();
+			}
+			fclose($fichierCsv);
+		}
+		return view('marques.upload');
+	}
 }

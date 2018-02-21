@@ -29,6 +29,23 @@
         </li>
     </ul>
 </li>
+<li>
+    <a href="javascript:;" data-toggle="collapse" data-target="#adminNav"><i class="fa fa-user-secret"></i> Admin <i class="fa fa-fw fa-caret-down"></i></a>
+    <ul id="adminNav" class="collapse">
+        <li>
+            <a href="{{route('modeles.upload')}}">Charge modele</a>
+        </li>
+        <li>
+            <a href="{{route('marques.upload')}}">Charge marque</a>
+        </li>
+        <li>
+            <a href="{{route('autos.upload')}}">Charge auto</a>
+        </li>
+        <li>
+            <a href="{{route('clients.upload')}}">Charge client</a>
+        </li>
+    </ul>
+</li>
 <!--<li>
     <a href="javascript:;" data-toggle="collapse" data-target="#montageNav"><i class="fa fa-life-ring"></i> Montages <i class="fa fa-fw fa-caret-down"></i></a>
     <ul id="montageNav" class="collapse">
@@ -42,7 +59,7 @@
 </li>
 <li>
     <a href="javascript:;" data-toggle="collapse" data-target="#depannageNav"><i class="fa fa-road"></i> Dépannage/fourriere <i class="fa fa-fw fa-caret-down"></i></a>
-    <ul id="depannageNav" class="collapse">
+    <ul id="depannageNav" class="collapse">²
        <li>
             <a href="{{route('autos.index')}}">Liste</a>
         </li>
