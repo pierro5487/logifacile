@@ -7,6 +7,7 @@ use App\Cp;
 use App\Http\Requests\ChoixClientRequest;
 use App\Http\Requests\ClientRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
 
 class ClientsController extends Controller
@@ -122,25 +123,27 @@ class ClientsController extends Controller
 	}
 	
 	public function upload(Request $request){
-		if($request->isMethod('post')){
-			$data = $request->all();
-			$file = $data['file'];
-			$pathInfo = pathinfo($file);
-			$fichierCsv = fopen($pathInfo['dirname'].'/'.$pathInfo['basename'],'r');
-			while(($ligne = fgetcsv($fichierCsv)) !== false){
-				$client  = new Client();
-				$client->id = $ligne[0];
-				$client->firstname = $ligne[1];
-				$client->lastname = $ligne[2];
-				$client->email = $ligne[3];
-				$client->adress = $ligne[4];
-				$client->id_city = $ligne[5];
-				$client->phone = $ligne[6];
-				$client->created_at = $ligne[7];
-				$client->save();
+		if(Gate::allows('view_admin')) {
+			if ($request->isMethod('post')) {
+				$data = $request->all();
+				$file = $data['file'];
+				$pathInfo = pathinfo($file);
+				$fichierCsv = fopen($pathInfo['dirname'] . '/' . $pathInfo['basename'], 'r');
+				while (($ligne = fgetcsv($fichierCsv)) !== false) {
+					$client = new Client();
+					$client->id = $ligne[0];
+					$client->firstname = $ligne[1];
+					$client->lastname = $ligne[2];
+					$client->email = $ligne[3];
+					$client->adress = $ligne[4];
+					$client->id_city = $ligne[5];
+					$client->phone = $ligne[6];
+					$client->created_at = $ligne[7];
+					$client->save();
+				}
+				fclose($fichierCsv);
 			}
-			fclose($fichierCsv);
+			return view('clients.upload');
 		}
-		return view('clients.upload');
 	}
 }

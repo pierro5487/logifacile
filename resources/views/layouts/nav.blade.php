@@ -29,6 +29,7 @@
         </li>
     </ul>
 </li>
+@if(Gate::allows('view_admin'))
 <li>
     <a href="javascript:;" data-toggle="collapse" data-target="#adminNav"><i class="fa fa-user-secret"></i> Admin <i class="fa fa-fw fa-caret-down"></i></a>
     <ul id="adminNav" class="collapse">
@@ -46,6 +47,7 @@
         </li>
     </ul>
 </li>
+@endif
 <!--<li>
     <a href="javascript:;" data-toggle="collapse" data-target="#montageNav"><i class="fa fa-life-ring"></i> Montages <i class="fa fa-fw fa-caret-down"></i></a>
     <ul id="montageNav" class="collapse">

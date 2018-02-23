@@ -6,6 +6,7 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RegisterController extends Controller
 {
@@ -62,6 +63,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+		throw new NotFoundHttpException();
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

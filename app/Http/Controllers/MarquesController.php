@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Marque;
 use App\Montage;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -47,19 +48,21 @@ class MarquesController extends Controller{
 	}
 	
 	public function upload(Request $request){
-		if($request->isMethod('post')){
-			$data = $request->all();
-			$file = $data['file'];
-			$pathInfo = pathinfo($file);
-			$fichierCsv = fopen($pathInfo['dirname'].'/'.$pathInfo['basename'],'r');
-			while(($ligne = fgetcsv($fichierCsv)) !== false){
-				$marque  = new Marque();
-				$marque->id = $ligne[0];
-				$marque->nom = $ligne[1];
-				$marque->save();
+		if(Gate::allows('view_admin')) {
+			if ($request->isMethod('post')) {
+				$data = $request->all();
+				$file = $data['file'];
+				$pathInfo = pathinfo($file);
+				$fichierCsv = fopen($pathInfo['dirname'] . '/' . $pathInfo['basename'], 'r');
+				while (($ligne = fgetcsv($fichierCsv)) !== false) {
+					$marque = new Marque();
+					$marque->id = $ligne[0];
+					$marque->nom = $ligne[1];
+					$marque->save();
+				}
+				fclose($fichierCsv);
 			}
-			fclose($fichierCsv);
+			return view('marques.upload');
 		}
-		return view('marques.upload');
 	}
 }

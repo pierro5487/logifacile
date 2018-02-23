@@ -6,6 +6,7 @@ use App\Http\Requests\AddModeleRequest;
 use App\Marque;
 use App\Modele;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
 
 class ModelesController extends Controller
@@ -63,20 +64,22 @@ class ModelesController extends Controller
 	}
 	
 	public function upload(Request $request){
-		if($request->isMethod('post')){
-			$data = $request->all();
-			$file = $data['file'];
-			$pathInfo = pathinfo($file);
-			$fichierCsv = fopen($pathInfo['dirname'].'/'.$pathInfo['basename'],'r');
-			while(($ligne = fgetcsv($fichierCsv)) !== false){
-				$modele  = new Modele();
-				$modele->id = $ligne[0];
-				$modele->nom = $ligne[1];
-				$modele->marque_id = $ligne[2];
-				$modele->save();
+		if(Gate::allows('view_admin')) {
+			if ($request->isMethod('post')) {
+				$data = $request->all();
+				$file = $data['file'];
+				$pathInfo = pathinfo($file);
+				$fichierCsv = fopen($pathInfo['dirname'] . '/' . $pathInfo['basename'], 'r');
+				while (($ligne = fgetcsv($fichierCsv)) !== false) {
+					$modele = new Modele();
+					$modele->id = $ligne[0];
+					$modele->nom = $ligne[1];
+					$modele->marque_id = $ligne[2];
+					$modele->save();
+				}
+				fclose($fichierCsv);
 			}
-			fclose($fichierCsv);
+			return view('modeles.upload');
 		}
-		return view('modeles.upload');
 	}
 }

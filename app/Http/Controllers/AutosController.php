@@ -10,6 +10,7 @@ use App\Marque;
 use App\Modele;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
 
 class AutosController extends Controller
@@ -65,23 +66,25 @@ class AutosController extends Controller
 	}
 	
 	public function upload(Request $request){
-		if($request->isMethod('post')){
-			$data = $request->all();
-			$file = $data['file'];
-			$pathInfo = pathinfo($file);
-			$fichierCsv = fopen($pathInfo['dirname'].'/'.$pathInfo['basename'],'r');
-			while(($ligne = fgetcsv($fichierCsv)) !== false){
-				$auto  = new Auto();
-				$auto->id = $ligne[0];
-				$auto->marque_id = $ligne[1];
-				$auto->model_id =$ligne[2];
-				$auto->immat = $ligne[3];
-				$auto->client_id = $ligne[4];
-				$auto->created_at = $ligne[5];
-				$auto->save();
+		if(Gate::allows('view_admin')) {
+			if ($request->isMethod('post')) {
+				$data = $request->all();
+				$file = $data['file'];
+				$pathInfo = pathinfo($file);
+				$fichierCsv = fopen($pathInfo['dirname'] . '/' . $pathInfo['basename'], 'r');
+				while (($ligne = fgetcsv($fichierCsv)) !== false) {
+					$auto = new Auto();
+					$auto->id = $ligne[0];
+					$auto->marque_id = $ligne[1];
+					$auto->model_id = $ligne[2];
+					$auto->immat = $ligne[3];
+					$auto->client_id = $ligne[4];
+					$auto->created_at = $ligne[5];
+					$auto->save();
+				}
+				fclose($fichierCsv);
 			}
-			fclose($fichierCsv);
+			return view('autos.upload');
 		}
-		return view('autos.upload');
 	}
 }

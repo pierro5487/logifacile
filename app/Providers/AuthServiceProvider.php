@@ -16,7 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
-		Facture::class => FacturePolicy::class
+		Facture::class => FacturePolicy::class,
     ];
 
     /**
@@ -26,8 +26,10 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+		Gate::define('view_admin', function ($user) {
+			return $user->isAdmin();
+		});
+		
         $this->registerPolicies();
-
-        //
     }
 }

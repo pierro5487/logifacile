@@ -100,7 +100,11 @@ class FacturesController extends Controller
 		$totaux = $facture->getTotaux();
 		//on récupère les autos de ce client
 		$client = $request->session()->get('client');
-		$autos = $this->formatAutoList(Auto::where('client_id',$client->id)->with('marque')->with('modele')->get(),'immat');
+		if($client->type != 'A') {
+			$autos = $this->formatAutoList(Auto::where('client_id', $client->id)->with('marque')->with('modele')->get(), 'immat');
+		}else{
+			$autos = $this->formatAutoList(Auto::with('modele')->with('marque')->get(),'immat');
+		}
 		$this->authorize('edit',$facture);
 		return view('factures.edit',compact('facture','totaux','autos'));
 	}

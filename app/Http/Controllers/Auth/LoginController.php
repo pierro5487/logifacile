@@ -26,6 +26,7 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = '/home';
+	protected $username = 'name';
 
     /**
      * Create a new controller instance.
@@ -39,6 +40,6 @@ class LoginController extends Controller
 	
 	public function username()
 	{
-		return 'username';
+		return 'email';
 	}
 }
