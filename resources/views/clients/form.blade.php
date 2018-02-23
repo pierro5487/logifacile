@@ -27,7 +27,7 @@
     </div>
     <div class="form-group col-xs-10 col-md-5 {{ ($errors->has('id_city'))?'has-error':''}}">
         {!! Form::label('id_city', 'Ville',['class'=> 'control-label']) !!}
-        {!! Form::select('id_city',isset($client)?$villes:[],isset($client)?$client->id_city:'',['placeholder' => 'Choisissez une commune','class' => 'form-control']) !!}
+        {!! Form::select('id_city',isset($client)?$villes:(\Illuminate\Support\Facades\Session::has('villes')?\Illuminate\Support\Facades\Session::get('villes'):[]),isset($client)?$client->id_city:'',['placeholder' => 'Choisissez une commune','class' => 'form-control']) !!}
         <div class="control-feedback">{{ ($errors->has('id_city'))?$errors->first('id_city'):''}}</div>
     </div>
     <div class="form-group col-xs-2 col-md-1">
@@ -45,6 +45,7 @@
         {!! Form::text('phone',isset($client)?$client->phone:'',['class' => 'form-control']) !!}
         <div class="control-feedback">{{ ($errors->has('phone'))?$errors->first('phone'):''}}</div>
     </div>
+    <input id="directionHidden" type="hidden" name="direction"/>
     <div class="col-xs-12 text-center">
         {!! Form::submit('Enregistrer',['class' => 'btn btn-success','id'=>'submitBoutton']) !!}
     </div>

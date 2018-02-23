@@ -37,22 +37,29 @@ class ClientsController extends Controller
 	 * redirection differente possible
 	 */
     public function sauve(ClientRequest $request){
+		dd($request);
     	$data = $request->all();
 		$data['lastname'] = strtoupper($data['lastname']);
 		$data['firstname'] = ucfirst($data['firstname']);
 		
-		if(Client::create($data)){
+		if($client = Client::create($data)){
 			Session::flash('success','Client ajouté');
 			//choix de la redirection
-			if(isset($data['auto'])){
-				return redirect()->route('autos.add',['client'=>1]);
+			if($data['direction'] == 'save'){
+				return redirect()->route('clients.liste');
+			}else{
+				//ON ECRIT LE client en session
+				$request->session()->put('client',$client);
+				$request->session()->flash('success','Nouveau Client choisi');
+				if($data['direction'] == 'auto'){
+					return redirect()->route('autos.add',['client'=>1]);
+				}
+				return redirect()->route('clients.liste');
 			}
-			return redirect()->route('clients.liste');
-			
 		}else{
 			Session::flash('error','Une erreur est survenue pendant l\'enregistrement');
 		}
-		return redirect()->route('clients.add');
+		return view('clients.add');
 	}
 	
 	/**

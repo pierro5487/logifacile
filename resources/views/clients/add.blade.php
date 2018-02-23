@@ -5,7 +5,7 @@
 @section('content')
     {!! Form::open(['url' => url('clients/sauve'),'autocomplete'=>"off",'class'=>'form-min-height','id'=>"formAjoutClient"]) !!}
         @include('clients.form')
-        @include('elements/clientRedirection')
+        @include('elements.clients.clientRedirection')
     {!! Form::close() !!}
     <script>
         $(function(){

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Cp;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ClientRequest extends FormRequest
@@ -15,8 +16,18 @@ class ClientRequest extends FormRequest
     {
         return true;
     }
-
-    /**
+	
+	public function response(array $errors)
+	{
+		$data = $this->except($this->dontFlash);
+		$villes = Cp::getListForCp($data['zipcode']);
+		return $this->redirector->to($this->getRedirectUrl())
+			->withErrors($errors, $this->errorBag)
+			->withInput($data)
+			->with( ['villes' => $villes]);
+	}
+	
+	/**
      * Get the validation rules that apply to the request.
      *
      * @return array
