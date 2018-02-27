@@ -25,7 +25,7 @@
                             </div>
                             <div class="form-group col-md-12">
                                 {!! Form::label('date_document', 'Date document',['class'=> 'control-label']) !!}
-                                {!! Form::text('date_document','',['id'=> 'dateAddAuto','class' => 'form-control','step'=> 0.01,'min'=>1,'data-date-language'=>"fr"]) !!}
+                                {!! Form::text('date_document',\Carbon\Carbon::now()->format('d/m/Y'),['id'=> 'dateAddAuto','class' => 'form-control','step'=> 0.01,'min'=>1,'data-date-language'=>"fr"]) !!}
                             </div>
                         </form>
                     </div>

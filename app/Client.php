@@ -28,6 +28,11 @@ class Client extends Model
 		return $this->hasOne('App\Cp','id','id_city');
 	}
 	
+	//jointure table city
+	public function auto(){
+		return $this->hasMany('App\Auto','client_id','id');
+	}
+	
 	public function getClientListForSearch($search){
 		return $this
 			->select('cp_autocomplete.VILLE','clients.id','clients.lastname','clients.firstname')

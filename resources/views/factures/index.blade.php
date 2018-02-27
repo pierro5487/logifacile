@@ -11,6 +11,7 @@
                 <th>Numero</th>
                 <th>Client</th>
                 <th>Montant</th>
+                <th>Solde</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -22,6 +23,13 @@
                     <td>{!! $facture->numero !!}</td>
                     <td>{!! $facture->nom_client !!}</td>
                     <td>{!! number_format($facture->totaux['totalHT'],2,',',' ') !!}</td>
+                    <td>
+                        @if($facture->totaux['solde'] == 0)
+                            <span class="label label-success">Payé</span>
+                        @else
+                            <span class="label label-danger">Reste {{ number_format($facture->totaux['solde'],2,',',' ')}}€</span>
+                        @endif
+                    </td>
                     <td>
                         <a class="btn btn-info" title="Ajouter un réglement" href="{{route('reglements.add',$facture->id)}}">
                             <i class="fa fa-money"></i>

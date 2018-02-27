@@ -81,6 +81,7 @@ class Facture extends Model
 			$totaux['totalEncaissement'] += $encaissement['montant'];
 		}
 		$totaux['solde'] = $totaux['netAPaye'] = $totaux['totalTTC'] - $totaux['totalEncaissement'];
+		$this->totaux = $totaux;
 		return $totaux;
 	}
 	
@@ -108,6 +109,19 @@ class Facture extends Model
 		}while($this->where('numero','like',$prefix.$count)->count() != 0);
 		
 		return $prefix.$count;
+	}
+	
+	public static function getFacturesNonRegle($idClient){
+		$factures = self::where('type','facture')->forClient($idClient)->get();
+		$datas = [];
+		foreach ($factures as $facture){
+			$totaux = $facture->getTotaux();
+			$facture->totaux = $totaux;
+			if($totaux['solde'] > 0){
+				$datas[] = $facture;
+			}
+		}
+		return $datas;
 	}
 	
 	/*-----------------------------------------------*/

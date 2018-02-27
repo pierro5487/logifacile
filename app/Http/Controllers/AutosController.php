@@ -15,11 +15,11 @@ use Illuminate\Support\Facades\Session;
 
 class AutosController extends Controller
 {
-    public function add(){
+    public function add(Client $client = null){
     	/**récupéres les marques**/
 		$marques = $this->formatUcGroup(Marque::all(),'nom');
 		$clients = $this->formatUcGroup(Client::all(),'lastname','firstname');
-    	return view('autos.add',compact('marques','clients'));
+    	return view('autos.add',compact('marques','clients','client'));
 	}
 	
 	public function sauve(AutoRequest $request){

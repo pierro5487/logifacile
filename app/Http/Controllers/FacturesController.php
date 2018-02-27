@@ -20,7 +20,7 @@ class FacturesController extends Controller
 			$client = $request->session()->get('client');
 			$brouillons = Facture::getFacture()->brouillon()->forClient($client['id'])->get();
 			// et si il a des factures non payées
-			$facturesNonReglees = [];
+			$facturesNonReglees = Facture::getFacturesNonRegle($client['id']);
 			//si pas de cas en attente on créer la facture
 			if(count($brouillons) == 0 && count($facturesNonReglees) == 0){
 				//on verifie que le client existe
@@ -35,7 +35,7 @@ class FacturesController extends Controller
 				$facture->adresse = $client->adress;
 				$facture->adresse_comp = $client->adresse_comp;
 				$facture->code_postal = $client->city->CP;
-				$facture->ville = $client->city->VILLE;
+				$facture->ville = 'pouet';
 				$facture->pays = $client->city->CODEPAYS;
 				$facture->echeance = Carbon::now('Europe/london');
 				$facture->date_document = Carbon::now('Europe/london');

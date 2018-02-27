@@ -7,7 +7,7 @@
     </div>
     <div class="form-group col-md-6 {{ ($errors->has('client_id'))?'has-error':''}}">
         {!! Form::label('client_id', 'Client',['class'=> 'control-label']) !!}
-        {!! Form::select('client_id',$clients,isset($auto)?$auto->client_id:'',['placeholder' => 'Choisissez le propriétaire du véhicules','class' => 'form-control']) !!}
+        {!! Form::select('client_id',$clients,isset($auto)?$auto->client_id:(isset($client)?$client->id:''),['placeholder' => 'Choisissez le propriétaire du véhicules','class' => 'form-control']) !!}
         <div class="control-feedback">{{ ($errors->has('client_id'))?$errors->first('client_id'):''}}</div>
     </div>
     <div class="form-group col-md-6 {{ ($errors->has('marque_id'))?'has-error':''}}">
@@ -22,7 +22,7 @@
     </div>
 
     <div class="col-xs-12 text-center">
-        {!! Form::submit('Enregistrer',['class' => 'btn btn-outline-success','id'=>'submitBoutton']) !!}
+        {!! Form::submit('Enregistrer',['class' => 'btn btn-success','id'=>'submitBoutton']) !!}
     </div>
 </div>
 <script>

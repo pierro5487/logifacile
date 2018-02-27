@@ -173,9 +173,9 @@
                         <li>
                             <a href="{{route('clients.choixClient')}}"><i class="fa fa-fw fa-list"></i>Changer</a>
                         </li>
-                        {{--<li>--}}
-                            {{--<a href="#"><i class="fa fa-fw fa-search"></i>Voir Client</a>--}}
-                        {{--</li>--}}
+                        <li>
+                            <a href="{{route('clients.view',Session::get('client.id'))}}"><i class="fa fa-fw fa-search"></i>Voir Client</a>
+                        </li>
                         <li>
                             <a href="{{route('clients.edit',Session::get('client.id'))}}"><i class="fa fa-fw fa-gear"></i>modifier Client</a>
                         </li>

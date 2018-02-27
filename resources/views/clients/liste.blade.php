@@ -24,6 +24,9 @@
                     <td>{{$client->fullName}}</td>
                     <td>{{$client->city->VILLE}}</td>
                     <td>
+                        <a href="{{route('clients.view',$client->id)}}" class="btn btn-success" title="Voir ce client">
+                            <i class="fa fa-search"></i>
+                        </a>
                         <a href="{{route('clients.edit',$client->id)}}" class="btn btn-warning" title="Modifier ce client">
                             <i class="fa fa-edit"></i>
                         </a>

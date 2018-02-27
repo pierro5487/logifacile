@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Auto;
 use App\Client;
 use App\Cp;
+use App\Facture;
 use App\Http\Requests\ChoixClientRequest;
 use App\Http\Requests\ClientRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ClientsController extends Controller
 {
@@ -29,6 +32,16 @@ class ClientsController extends Controller
            return json_encode($codePostaux);
         }
     }
+    
+    public function view($idClient){
+		$client = Client::findOrFail($idClient);
+		$autos = Auto::where('client_id',$idClient)->with('modele')->with('marque')->get();
+		//on recupères les factures brouillons
+		$brouillons = Facture::getFacture()->valide()->forClient($client['id'])->get();
+		// et si il a des factures non payées
+		$facturesNonReglees = Facture::getFacturesNonRegle($client['id']);
+		return view('clients.view',compact('client','autos','brouillons','facturesNonReglees'));
+	}
 	
 	/**
 	 * @param ClientRequest $request
@@ -37,7 +50,6 @@ class ClientsController extends Controller
 	 * redirection differente possible
 	 */
     public function sauve(ClientRequest $request){
-		dd($request);
     	$data = $request->all();
 		$data['lastname'] = strtoupper($data['lastname']);
 		$data['firstname'] = ucfirst($data['firstname']);

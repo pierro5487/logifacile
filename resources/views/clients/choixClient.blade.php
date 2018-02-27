@@ -21,7 +21,7 @@
                 <div class="control-feedback">{{ ($errors->has('client_id'))?$errors->first('client_id'):''}}</div>
             </div>
             <div class="col-md-12 text-center">
-                {!! Form::submit('Enregistrer',['class' => 'btn btn-outline-success','id'=>'submitBoutton']) !!}
+                {!! Form::submit('Enregistrer',['class' => 'btn btn-success','id'=>'submitBoutton']) !!}
             </div>
         {!! Form::close() !!}
     </div>

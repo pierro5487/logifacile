@@ -47,6 +47,7 @@
     </div>
     <input id="directionHidden" type="hidden" name="direction"/>
     <div class="col-xs-12 text-center">
+        <a class="btn btn-danger" href="{{ URL::previous() }}">Annuler</a>
         {!! Form::submit('Enregistrer',['class' => 'btn btn-success','id'=>'submitBoutton']) !!}
     </div>
 </div>

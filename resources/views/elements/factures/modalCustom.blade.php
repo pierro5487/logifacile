@@ -21,11 +21,11 @@
                             </div>
                             <div class="form-group col-md-6">
                                 {!! Form::label('quantiteCustom', 'Quantite',['class'=> 'control-label']) !!}
-                                {!! Form::number('quantiteCustom',1,['class' => 'form-control','step'=> 1,'min'=>1]) !!}
+                                {!! Form::number('quantiteCustom','',['class' => 'form-control','step'=> 1,'min'=>1]) !!}
                             </div>
                             <div class="form-group col-md-6">
                                 {!! Form::label('prixCustom', 'Prix HT',['class'=> 'control-label']) !!}
-                                {!! Form::number('prixCustom',1,['class' => 'form-control','step'=> 0.01,'min'=>1]) !!}
+                                {!! Form::number('prixCustom','',['class' => 'form-control','step'=> 0.01,'min'=>1]) !!}
                             </div>
                             <div class="form-group col-md-6">
                                 {!! Form::label('remiseCustom', 'Remise %',['class'=> 'control-label']) !!}

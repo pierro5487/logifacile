@@ -20,7 +20,7 @@ class CreateFactureTable extends Migration
 			$table->string('numero');
 			$table->mediumInteger('situation');
 			$table->string('type');
-			$table->tinyInteger('client_id');
+			$table->integer('client_id');
 			$table->string('nom_client');
 			$table->string('adresse');
 			$table->string('adresse_comp')->nullable();
