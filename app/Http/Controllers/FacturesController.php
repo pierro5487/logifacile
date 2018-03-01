@@ -10,6 +10,7 @@ use App\GroupeLigne;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 
 class FacturesController extends Controller
 {
@@ -21,6 +22,7 @@ class FacturesController extends Controller
 			$brouillons = Facture::getFacture()->brouillon()->forClient($client['id'])->get();
 			// et si il a des factures non payées
 			$facturesNonReglees = Facture::getFacturesNonRegle($client['id']);
+			$factures = Facture::getFacturesRegle($client['id']);
 			//si pas de cas en attente on créer la facture
 			if(count($brouillons) == 0 && count($facturesNonReglees) == 0){
 				//on verifie que le client existe
@@ -35,12 +37,12 @@ class FacturesController extends Controller
 				$facture->adresse = $client->adress;
 				$facture->adresse_comp = $client->adresse_comp;
 				$facture->code_postal = $client->city->CP;
-				$facture->ville = 'pouet';
+				$facture->ville = $client->city->VILLE;
 				$facture->pays = $client->city->CODEPAYS;
 				$facture->echeance = Carbon::now('Europe/london');
 				$facture->date_document = Carbon::now('Europe/london');
 				$facture->createur_id = Auth::id();
-				$facture->is_auto_E = false;
+				$facture->is_auto_E = Config('app.aeMode');
 				if ($facture->save()) {
 					//on creer le groupe
 					$groupe = new GroupeLigne();
@@ -54,7 +56,7 @@ class FacturesController extends Controller
 					$request->session()->flash('error','Une erreur est survenue pendant la création de la facture,veuillez réessayer');
 				}
 			}
-			return view('factures.addFacture',compact('brouillons','facturesNonReglees'));
+			return view('factures.addFacture',compact('brouillons','facturesNonReglees','factures'));
 		}else{
 			//si non on redirige vers une page de choix
 			return redirect()->route('clients.choixClient',['redirect'=>'addFacture']);
@@ -68,7 +70,7 @@ class FacturesController extends Controller
 		//on calcule le total de la facture
 		//on créer la facture
 		$pdf = new FacturePdf();
-//		$pdf->setAutoE();
+		$pdf->setAutoE($facture->is_auto_E);
 		$pdf->AliasNbPages();
 		$pdf->AddPage();
 		$pdf->infoFacture($facture);

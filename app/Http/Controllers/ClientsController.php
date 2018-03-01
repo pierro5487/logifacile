@@ -37,10 +37,11 @@ class ClientsController extends Controller
 		$client = Client::findOrFail($idClient);
 		$autos = Auto::where('client_id',$idClient)->with('modele')->with('marque')->get();
 		//on recupères les factures brouillons
-		$brouillons = Facture::getFacture()->valide()->forClient($client['id'])->get();
+		$brouillons = Facture::getFacture()->brouillon()->forClient($client['id'])->get();
 		// et si il a des factures non payées
 		$facturesNonReglees = Facture::getFacturesNonRegle($client['id']);
-		return view('clients.view',compact('client','autos','brouillons','facturesNonReglees'));
+		$factures = Facture::getFacturesRegle($client['id']);
+		return view('clients.view',compact('client','autos','brouillons','facturesNonReglees','factures'));
 	}
 	
 	/**

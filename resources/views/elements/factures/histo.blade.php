@@ -14,31 +14,27 @@
             <h3 class="panel-title"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Brouillon en cours</h3>
         </div>
         <div class="panel-body">
-            <thead>
+            <table class="table">
+                <thead>
                 <tr>
                     <th>Numero</th>
                     <th>Total TTC</th>
-                    <th>Solde</th>
                     <td>Actions</td>
                 </tr>
-            </thead>
-            <table class="table">
+                </thead>
                 @forelse($brouillons as $brouillon)
                     <tr>
                         <td>
                             {{$brouillon['numero']}}
                         </td>
-                        <td class="btn-td">
+                        <td>{{number_format($brouillon->totaux['totalTTC'],2,',',' ')}}€</td>
+                        <td class="">
                             <a href="{{route('factures.visualise',$brouillon['id'])}}" title="Voir cette facture" target="_blank" class="btn btn-success btn-small">
                                 <i class="fa fa-search"></i>
                             </a>
-                        </td>
-                        <td class="btn-td">
                             <a href="{{route('factures.edit',$brouillon['id'])}}" title="Modifier cette facture" class="btn btn-warning btn-small">
                                 <i class="fa fa-edit"></i>
                             </a>
-                        </td>
-                        <td class="btn-td">
                             <form method="post" action="{{route('factures.delete',$brouillon['id'])}}">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <input type="hidden" name="idFacture" value="{{$brouillon['id']}}"/>
@@ -76,11 +72,7 @@
                         <td>{{$facture['numero']}}</td>
                         <td class=" visible-sm visible-md visible-lg">{{number_format($facture['totaux']['totalTTC'],2,',',' ')}}€</td>
                         <td class="visible-sm visible-md visible-lg">
-                            @if($facture->totaux['solde'] == 0)
-                                <span class="label label-success">Payé</span>
-                            @else
-                                <span class="label label-danger">Reste {{ number_format($facture->totaux['solde'],2,',',' ')}}€</span>
-                            @endif
+                            <span class="label label-danger">Reste {{ number_format($facture->totaux['solde'],2,',',' ')}}€</span>
                         </td>
                         <td class="btn-td">
                             <a href="{{route('factures.visualise',$facture['id'])}}" title="Voir cette facture" target="_blank" class="btn btn-success btn-small">
@@ -93,6 +85,44 @@
                     </tr>
                 @empty
                     <tr><td colspan="4" class="text-center">Aucune facture non soldée</td></tr>
+                @endforelse
+            </table>
+        </div>
+    </div>
+</div>
+<div class="col-lg-12" id="documentBlock">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <i class="fa fa-history" aria-hidden="true"></i>
+                Factures
+            </h3>
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Numero</th>
+                    <th>Total TTC</th>
+                    <th>Solde</th>
+                    <td>Actions</td>
+                </tr>
+                </thead>
+                @forelse($factures as $facture)
+                    <tr>
+                        <td>{{$facture['numero']}}</td>
+                        <td class=" visible-sm visible-md visible-lg">{{number_format($facture['totaux']['totalTTC'],2,',',' ')}}€</td>
+                        <td class="visible-sm visible-md visible-lg">
+                            <span class="label label-success">Payé</span>
+                        </td>
+                        <td class="btn-td">
+                            <a href="{{route('factures.visualise',$facture['id'])}}" title="Voir cette facture" target="_blank" class="btn btn-success btn-small">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </td>
+                    </tr>
+                @empty
+                    <tr><td colspan="4" class="text-center">Aucune facture</td></tr>
                 @endforelse
             </table>
         </div>

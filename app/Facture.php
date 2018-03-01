@@ -5,6 +5,7 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\LigneFacture;
 
 class Facture extends Model
 {
@@ -12,6 +13,18 @@ class Facture extends Model
 	protected $totaux;
 	
 	protected $dates = array('date_document','deleted_at');
+	
+	public function __construct(){
+		parent::__construct();
+
+	}
+	
+	
+	public function setTotaux(){
+		if(empty($this->totaux)){
+			$this->totaux = $this->getTotaux();
+		}
+	}
 	
 	public function lignes(){
 		return $this->hasMany('App\LigneFacture','document_id','id');
@@ -41,7 +54,7 @@ class Facture extends Model
 		$totaux['totalEncaissement'] = 0 ;
 		$totaux['totalTVA'] = 0;
 		$totaux['tva'] = array();
-		foreach ($this->Lignes as $ligne){
+		foreach ($this->lignes as $ligne){
 			//calcul du montant ht de la ligne
 			$montantHT = $ligne->prix_unitaire_HT*$ligne->quantite;
 			$totaux['totalHT'] += $montantHT;
@@ -112,12 +125,23 @@ class Facture extends Model
 	}
 	
 	public static function getFacturesNonRegle($idClient){
-		$factures = self::where('type','facture')->forClient($idClient)->get();
+		$factures = self::where('type','facture')->where('etat','validé')->forClient($idClient)->get();
 		$datas = [];
 		foreach ($factures as $facture){
-			$totaux = $facture->getTotaux();
-			$facture->totaux = $totaux;
-			if($totaux['solde'] > 0){
+			$facture->setTotaux();
+			if($facture->totaux['solde'] > 0){
+				$datas[] = $facture;
+			}
+		}
+		return $datas;
+	}
+	
+	public static function getFacturesRegle($idClient){
+		$factures = self::where('type','facture')->where('etat','validé')->forClient($idClient)->get();
+		$datas = [];
+		foreach ($factures as $facture){
+			$facture->setTotaux();
+			if($facture->totaux['solde'] == 0){
 				$datas[] = $facture;
 			}
 		}
@@ -182,5 +206,4 @@ class Facture extends Model
 	public function scopeForClient($query,$idClient){
 		return $query->where('client_id',$idClient);
 	}
-	
 }

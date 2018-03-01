@@ -42,7 +42,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="6" class="text-center">Aucune facture</td>
+                    <td colspan="7" class="text-center">Aucune facture</td>
                 </tr>
             @endforelse
         </tbody>

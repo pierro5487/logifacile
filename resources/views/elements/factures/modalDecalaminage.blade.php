@@ -17,7 +17,7 @@
                         <form>
                             <div class="form-group col-md-4">
                                 {!! Form::label('quantiteDecalaminage', 'Quantite',['class'=> 'control-label']) !!}
-                                {!! Form::number('quantiteDecalaminage','',['class' => 'form-control','step'=> 1,'min'=>1]) !!}
+                                {!! Form::number('quantiteDecalaminage',1,['class' => 'form-control','step'=> 1,'min'=>1]) !!}
                             </div>
                             <div class="form-group col-md-4">
                                 {!! Form::label('prixDecalaminage', 'Prix HT',['class'=> 'control-label']) !!}
