@@ -48,39 +48,14 @@
     </ul>
 </li>
 @endif
-<!--<li>
-    <a href="javascript:;" data-toggle="collapse" data-target="#montageNav"><i class="fa fa-life-ring"></i> Montages <i class="fa fa-fw fa-caret-down"></i></a>
-    <ul id="montageNav" class="collapse">
-        {{--<li>
-            <a href="{{route('autos.index')}}">Liste</a>
-        </li>--}}
+<li>
+    <a href="javascript:;" data-toggle="collapse" data-target="#configNav"><i class="fa fa-gears"></i> Configurations <i class="fa fa-fw fa-caret-down"></i></a>
+    <ul id="configNav" class="collapse">
         <li>
-            <a href="{{route('montages.add')}}">Ajouter</a>
+            <a href="{{route('montages.config')}}">Prix montage</a>
         </li>
     </ul>
 </li>
-<li>
-    <a href="javascript:;" data-toggle="collapse" data-target="#depannageNav"><i class="fa fa-road"></i> Dépannage/fourriere <i class="fa fa-fw fa-caret-down"></i></a>
-    <ul id="depannageNav" class="collapse">²
-       <li>
-            <a href="{{route('autos.index')}}">Liste</a>
-        </li>
-        <li>
-            <a href="{{route('autos.add')}}">Ajouter</a>
-        </li>
-    </ul>
-</li>
-<li>
-    <a href="javascript:;" data-toggle="collapse" data-target="#decalaminageNav"><i class="fa fa-leaf"></i> Décalaminage <i class="fa fa-fw fa-caret-down"></i></a>
-    <ul id="decalaminageNav" class="collapse">
-        <li>
-            <a href="{{route('autos.index')}}">Liste</a>
-        </li>
-        <li>
-            <a href="{{route('autos.add')}}">Ajouter</a>
-        </li>
-    </ul>
-</li>-->
 <li>
     <a href="javascript:;" data-toggle="collapse" data-target="#factureNav"><i class="fa fa-archive"></i> Factures <i class="fa fa-fw fa-caret-down"></i></a>
     <ul id="factureNav" class="collapse">

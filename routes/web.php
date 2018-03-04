@@ -54,6 +54,9 @@ Route::get('/modeles/getModelesForMarque','ModelesController@getModelesForMarque
 
 /*------montages-----*/
 Route::get('/montages/ajout','MontagesController@add')->name('montages.add');
+Route::get('/montages/config','MontagesController@config')->name('montages.config');
+Route::post('/montages/update','MontagesController@update')->name('montages.update');
+
 
 /*-----factures-----*/
 Route::get('/factures','FacturesController@index')->name('factures.index');
@@ -98,3 +101,6 @@ Route::get('/modeles/add/','ModelesController@add')->name('modeles.add');
 Route::post('/modeles/create/','ModelesController@create')->name('modeles.create');
 Route::get('/modeles/upload/','ModelesController@upload')->name('modeles.upload');
 Route::post('/modeles/upload/','ModelesController@upload')->name('modeles.upload');
+
+/*-----configutration-------*/
+//Route::post('/configurations/montage/','ConfigurationsController@montage')->name('configurations.montage');
