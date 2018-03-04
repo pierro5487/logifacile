@@ -20,8 +20,16 @@ class MontagesController extends Controller{
 	public function update(Request $request){
 		if($request->ajax()){
 			$data = $request->all();
-			dd($data);
-			return json_encode(array('success' => true));
+			$montage = Montage::find($data['idMontage']);
+			if($montage && is_numeric($data['prix'])){
+				$montage->valeur = $data['prix'];
+				if($montage->save()){
+					return json_encode(array('success' => true));
+				}else{
+					return json_encode(array('success' => false,'message' => 'une erreur est survenue pendant l\'enregistrement'));
+				}
+			}
+			return json_encode(array('success' => false,'message'=> 'ce montage n\'existe pas'));
 		}
 	}
 }

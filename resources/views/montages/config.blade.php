@@ -59,9 +59,15 @@
     <script>
         $(function(){
             $('.prixInput').on('blur',function(){
+                var input = $(this);
                 var idMontage = $(this).parents('tr').data('idMontage');
                 var prix = $(this).val();
                 setAjaxLoaderFullPage(true,'Enregsitrement en cours...');
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
                 $.ajax({
                     url:'{{route('montages.update')}}',
                     dataType:'json',
@@ -72,8 +78,11 @@
                     },
                     success:function(res){
                         if(res.success){
-
+                            input.parent('td').find('.successUpdate').remove();
+                            input.parent('td').append('<i class=" successUpdate fa fa-check" style="color: green"></i>');
                         }else{
+                            input.parent('td').find('.successUpdate').remove();
+                            input.parent('td').append('<i class=" successUpdate fa fa-close" style="color: red"></i>');
                             alert(res.message);
                         }
                     },
