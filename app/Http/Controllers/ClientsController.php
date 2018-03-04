@@ -80,7 +80,7 @@ class ClientsController extends Controller
 	 * liste tous les clients
 	 */
 	public function liste(){
-		$clients = Client::with('city')->get();
+		$clients = Client::with('city')->limit(20)->orderBy('created_at','desc')->get();
 		return view('clients.liste',compact('clients'));
 	}
 	

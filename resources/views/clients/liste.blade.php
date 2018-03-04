@@ -22,7 +22,7 @@
             @forelse($clients as $client)
                 <tr>
                     <td>{{$client->fullName}}</td>
-                    <td>{{$client->city->VILLE}}</td>
+                    <td>{{!empty($client->city)?$client->city->VILLE:''}}</td>
                     <td>
                         <a href="{{route('clients.view',$client->id)}}" class="btn btn-success" title="Voir ce client">
                             <i class="fa fa-search"></i>
