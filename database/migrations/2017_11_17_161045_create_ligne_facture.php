@@ -21,6 +21,7 @@ class CreateLigneFacture extends Migration
 			$table->decimal('prix_unitaire_HT',10,2);
 			$table->decimal('taux_tva',5,2);
 			$table->decimal('remise',5,2);
+			$table->dateTime('date_document');
 			$table->tinyInteger('createur_id');
 			$table->integer('groupe_lignes_id');
 			$table->softDeletes();
