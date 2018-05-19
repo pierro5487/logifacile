@@ -65,6 +65,7 @@ Route::get('/factures/visualise/{facture}','FacturesController@visualise')->name
 Route::get('/factures/edit/{facture}','FacturesController@edit')->name('factures.edit')->where('facture','[0-9]*');
 Route::post('/factures/delete/{facture}','FacturesController@delete')->name('factures.delete')->where('facture','[0-9]*');
 Route::post('/factures/valide/{facture}','FacturesController@valide')->name('factures.valide')->where('facture','[0-9]*');
+Route::get('/factures/forcecreationfacture}','FacturesController@forceCreateFacture')->name('factures.forceCreateFacture');
 
 /*----reglement----*/
 Route::get('/reglements/ajout/{facture}','ReglementsController@ajout')->name('reglements.ajout')->where('facture','[0-9]*');
@@ -79,6 +80,8 @@ Route::post('/ligneFactures/updateLigne','LigneFacturesController@updateLigne')-
 /*---grouppeLigne-------*/
 Route::post('/groupeLignes/deleteHeader','GroupeLignesController@deleteHeader')->name('groupeLignes.deleteHeader');
 Route::post('/groupeLignes/addAutoHeader','GroupeLignesController@addAutoHeader')->name('groupeLignes.addAutoHeader');
+Route::post('/groupeLignes/addNewGroupe/{facture}','GroupeLignesController@addNewGroupe')->name('groupeLignes.addNewGroupe')->where('facture','[0-9]*');
+Route::post('/groupeLignes/deleteGroupe/{groupe}','GroupeLignesController@deleteGroupe')->name('groupeLignes.deleteGroupe')->where('groupe','[0-9]*');
 
 /*-----reglement------*/
 Route::get('/reglements/add/{facture}','ReglementsController@add')->name('reglements.add')->where('facture','[0-9]*');

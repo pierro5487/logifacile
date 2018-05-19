@@ -3,10 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class GroupeLigne extends Model
 {
-	
+	use SoftDeletes;
 	protected $fillable = [
 		'document_id',
 		'createur_id',
@@ -16,6 +17,16 @@ class GroupeLigne extends Model
 		'kilometrage',
 		'date_document',
 	];
+	
+	// this is a recommended way to declare event handlers
+	protected static function boot() {
+		parent::boot();
+		
+		static::deleting(function($groupe) { // before delete() method call this
+			$groupe->ligne()->delete();
+			// do the rest of the cleanup...
+		});
+	}
 	
 	protected $dates = array('date_document');
 	

@@ -11,7 +11,16 @@
 <div class="col-lg-12" id="brouillonBlock">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Brouillon en cours</h3>
+            <h3 class="panel-title">
+                <div class="row">
+                    <span>
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Brouillon en cours
+                    </span>
+                    <span>
+                        <a href="{{route('factures.forceCreateFacture')}}" class="btn btn-success pull-right">Créer une nouvelle facture</a>
+                    </span>
+                </div>
+            </h3>
         </div>
         <div class="panel-body">
             <table class="table">

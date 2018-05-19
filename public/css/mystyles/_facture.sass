@@ -20,6 +20,9 @@
       a
         margin: auto 2px
 #brouillonBlock
+  h3
+    .pull-right
+      margin-right: 10px
   form
     display: inline
   tr
@@ -27,10 +30,14 @@
       //width: 80%
 #nonSoldeBlock
   table
+
 /*------------------------------------*/
 /*          edition facture           */
 /*------------------------------------*/
 #editFacture
+  #blocAction
+    .pull-right
+      margin-right: 20px
   table
     background-color: white
   .groupeLigneContent
@@ -45,5 +52,11 @@
     margin: auto
     border: 1px solid #dddddd
     padding: 10px 10px
+  .groupeLigne
+    position: relative
+    .deleteGroupeForm
+      position: absolute
+      right: 10px
+      top: 10px
 #modalMontage
   font-size: 16px

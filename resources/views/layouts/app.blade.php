@@ -23,7 +23,7 @@
     <link href="{{asset('css/plugins/morris.css')}}" rel="stylesheet">
 
     <!-- mon css -->
-    <link href="{{asset('css/default.css')}}" rel="stylesheet">
+    <link href="{{asset('css/default.css?32')}}" rel="stylesheet">
 
     <link href="{{ asset('css/bootstrap-datepicker3.min.css')}}" rel="stylesheet">
 

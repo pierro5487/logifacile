@@ -4,8 +4,18 @@
 
 @section('content')
     <div id="editFacture">
+        @php
+        $i = 1;
+        @endphp
         @foreach($facture->groupLignes as $groupe)
             <div class="groupeLigne well" data-id-groupe="{{$groupe->id}}">
+                <h3>Sous-total {{$i}}</h3>
+                <form class="deleteGroupeForm" method="post" action="{{route('groupeLignes.deleteGroupe',$groupe->id)}}">
+                    {!! Form::token() !!}
+                    <button type="submit" class="btn btn-danger pull-right">
+                        <i class="fa fa-trash-o"></i>
+                    </button>
+                </form>
                 <div class="groupeLigneHeader">
                     @if($groupe->no_header)
                         <table class="table table-bordered">
@@ -130,7 +140,19 @@
                     </div>
                 </div>
             </div>
+            @php
+            $i++;
+            @endphp
         @endforeach
+        <div class="well" id="blocAction">
+            <div class="row">
+                <form method="post" action="{{route('groupeLignes.addNewGroupe',$facture->id)}}">
+                    {!! Form::token() !!}
+                    <button type="submit" class="btn btn-success pull-right">Ajouter un nouveau sous-total</button>
+                </form>
+                <h4 class="pull-right">{{$i-1}} bloc sous-total</h4>
+            </div>
+        </div>
         <div class="well">
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-6">
@@ -202,6 +224,12 @@
 
             $('#valideForm').on('submit',function(e){
                 if(!confirm('Êtes vous sûr ? Vous ne pourrez plus modifier cette facture')){
+                    e.preventDefault();
+                }
+            });
+
+            $('.deleteGroupeForm').on('submit',function(e){
+                if(!confirm('êtes-vous sûr de vouloir supprimer ce sous-total, toutes les données seront perdues ?')){
                     e.preventDefault();
                 }
             });

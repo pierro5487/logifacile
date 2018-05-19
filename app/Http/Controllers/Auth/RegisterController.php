@@ -63,7 +63,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-		throw new NotFoundHttpException();
+//		throw new NotFoundHttpException();
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

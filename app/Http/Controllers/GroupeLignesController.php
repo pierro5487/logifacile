@@ -7,6 +7,8 @@ use App\GroupeLigne;
 use App\Http\Requests\addAutoHeaderRequest;
 use App\Http\Requests\DeleteHeaderGroupeRequest;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Request;
 
 class GroupeLignesController extends Controller{
 	
@@ -46,5 +48,30 @@ class GroupeLignesController extends Controller{
 		}
 		return json_encode(array('success' => false,'message' => 'le groupe ne correspond pas à la facture'));
 		
+	}
+	
+	public function addNewGroupe(Request $request,$idFacture){
+		//on creer le groupe
+		$groupe = new GroupeLigne();
+		$groupe->document_id = $idFacture;
+		$groupe->createur_id = Auth::id();
+		$groupe->no_header = '1';
+		$groupe->date_document = Carbon::now();
+		if(!$groupe->save()){
+			$request->session()->flash('error','Une erreur s\'est produite à la création du sous-total');
+		}else{
+			$request->session()->flash('success','nouveau sous-total créé');
+		}
+		return redirect()->back();
+	}
+	
+	public function deleteGroupe(Request $request,GroupeLigne $groupe){
+		if(!$groupe->delete()){
+			$request->session()->flash('error','Une erreur s\'est produite à la suppression du sous-total');
+		}else{
+			//on supprime également les lignes
+			$request->session()->flash('success','sous-total supprimé');
+		}
+		return redirect()->back();
 	}
 }

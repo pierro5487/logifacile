@@ -26,31 +26,8 @@ class FacturesController extends Controller
 			//si pas de cas en attente on créer la facture
 			if(count($brouillons) == 0 && count($facturesNonReglees) == 0){
 				//on verifie que le client existe
-				$facture = new Facture();
-				$facture->date_document = Carbon::now('Europe/London');
-				$facture->type = 'facture';
-				$facture->etat = 'brouillon';
-				$facture->numero = $facture->createNum();
-				$facture->situation = 1;
-				$facture->client_id = $client->id;
-				$facture->nom_client = $client->fullName;
-				$facture->adresse = $client->adress;
-				$facture->adresse_comp = $client->adresse_comp;
-				$facture->code_postal = $client->city->CP;
-				$facture->ville = $client->city->VILLE;
-				$facture->pays = $client->city->CODEPAYS;
-				$facture->echeance = Carbon::now('Europe/london');
-				$facture->date_document = Carbon::now('Europe/london');
-				$facture->createur_id = Auth::id();
-				$facture->is_auto_E = Config('app.aeMode');
-				if ($facture->save()) {
-					//on creer le groupe
-					$groupe = new GroupeLigne();
-					$groupe->document_id = $facture->id;
-					$groupe->createur_id = Auth::id();
-					$groupe->no_header = '1';
-					$groupe->date_document = Carbon::now();
-					$groupe->save();
+				$facture = $this->createFacture($client);
+				if ($facture) {
 					return redirect()->route('factures.edit', $facture->id);
 				}else{
 					$request->session()->flash('error','Une erreur est survenue pendant la création de la facture,veuillez réessayer');
@@ -61,6 +38,58 @@ class FacturesController extends Controller
 			//si non on redirige vers une page de choix
 			return redirect()->route('clients.choixClient',['redirect'=>'addFacture']);
 		}
+	}
+	
+	/**
+	 * @param Request $request
+	 * @return \Illuminate\Http\RedirectResponse
+	 * creatio, facture sans passer par verif brouillon ou non reglé
+	 */
+	public function forceCreateFacture(Request $request){
+		if($request->session()->exists('client')){
+			$client = $request->session()->get('client');
+			//on créer facture
+			$facture = $this->createFacture($client);
+			if ($facture) {
+				return redirect()->route('factures.edit', $facture->id);
+			}else{
+				$request->session()->flash('error','Une erreur est survenue pendant la création de la facture,veuillez réessayer');
+			}
+		}else{
+			//si non on redirige vers une page de choix
+			return redirect()->route('clients.choixClient',['redirect'=>'addFacture']);
+		}
+	}
+	
+	private function createFacture($client){
+		$facture = new Facture();
+		$facture->date_document = Carbon::now('Europe/London');
+		$facture->type = 'facture';
+		$facture->etat = 'brouillon';
+		$facture->numero = $facture->createNum();
+		$facture->situation = 1;
+		$facture->client_id = $client->id;
+		$facture->nom_client = $client->fullName;
+		$facture->adresse = $client->adress;
+		$facture->adresse_comp = $client->adresse_comp;
+		$facture->code_postal = $client->city->CP;
+		$facture->ville = $client->city->VILLE;
+		$facture->pays = $client->city->CODEPAYS;
+		$facture->echeance = Carbon::now('Europe/london');
+		$facture->date_document = Carbon::now('Europe/london');
+		$facture->createur_id = Auth::id();
+		$facture->is_auto_E = Config('app.aeMode');
+		if ($facture->save()) {
+			//on creer le groupe
+			$groupe = new GroupeLigne();
+			$groupe->document_id = $facture->id;
+			$groupe->createur_id = Auth::id();
+			$groupe->no_header = '1';
+			$groupe->date_document = Carbon::now();
+			$groupe->save();
+			return $facture;
+		}
+		return false;
 	}
 	
 	public function visualise(Facture $facture){
