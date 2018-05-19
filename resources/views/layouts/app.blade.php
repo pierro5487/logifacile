@@ -19,8 +19,6 @@
     <!-- Custom CSS -->
     <link href="{{asset('css/sb-admin.css')}}" rel="stylesheet">
 
-    <!-- Morris Charts CSS -->
-    <link href="{{asset('css/plugins/morris.css')}}" rel="stylesheet">
 
     <!-- mon css -->
     <link href="{{asset('css/default.css?32')}}" rel="stylesheet">
@@ -234,10 +232,6 @@
 <script src="{{asset('js/bootstrap-datepicker.fr.js')}}"defer></script>
 <script src="{{asset('js/defaut.js')}}"></script>
 
-<!-- Morris Charts JavaScript -->
-<!--<script src="{{asset('js/plugins/morris/raphael.min.js')}}" defer></script>
-<script src="{{asset('js/plugins/morris/morris.min.js')}}" defer></script>
-<script src="{{asset('js/plugins/morris/morris-data.js')}}" defer></script>-->
 
 </body>
 

@@ -34,6 +34,7 @@ Route::get('/autos/searchclient','ClientsController@searchClient')->name('autos.
 Route::get('/clients/upload/','ClientsController@upload')->name('clients.upload');
 Route::post('/clients/upload/','ClientsController@upload')->name('clients.upload');
 Route::get('/clients/view/{client}','ClientsController@view')->name('clients.view')->where('client','[0-9]*');
+Route::get('/clients/getClients','ClientsController@getClients')->name('clients.getClients');
 
 /*----code postal----*/
 //Route::get('/cp/search','CodePostalController@Search')->name('codePostal.search');

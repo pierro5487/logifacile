@@ -111,6 +111,24 @@ class ClientsController extends Controller
 		}
 	}
 	
+	public function getClients(Request $request){
+		if($request->ajax()){
+			$data = $request->all();
+			if(!isset($data['search'])){
+				return response()->json(['success' => false,'message' => 'Erreur: Données manquantes']);
+			}
+			$search = $data['search'];
+			$clientManager = new Client();
+			$clients = $clientManager->getClientListForSearch($search)->map(function($item){
+				return [
+					'id' 	=> $item->id,
+					'text'	=> $item->fullName
+				];
+			});
+			return response()->json(['success' => true,'results' => $clients]);
+		}
+	}
+	
 	/**
 	 * @param ChoixClientRequest $request
 	 * @param null $redirect
