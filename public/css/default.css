@@ -1,0 +1,102 @@
+@charset "UTF-8";
+.form-min-height .form-group {
+  min-height: 85px; }
+
+.has-error .control-feedback {
+  color: #a94442; }
+
+/*------------------------------------ */
+/*               général              */
+/*------------------------------------ */
+.factureBloc .icon_case {
+  display: block;
+  color: #333;
+  max-width: 250px; }
+.factureBloc .icon_case.icon_case_editable:hover {
+  box-shadow: 0 0 10px 2px; }
+
+/*------------------------------------ */
+/*            ajout facture           */
+/*------------------------------------ */
+#addFacture table {
+  width: 100%; }
+  #addFacture table .btn-td a {
+    margin: auto 2px; }
+
+#brouillonBlock h3 .pull-right {
+  margin-right: 10px; }
+#brouillonBlock form {
+  display: inline; }
+
+/*------------------------------------ */
+/*          edition facture           */
+/*------------------------------------ */
+#editFacture #blocAction .pull-right {
+  margin-right: 20px; }
+#editFacture table {
+  background-color: white; }
+#editFacture .groupeLigneContent table td:first-of-type {
+  width: 65%; }
+#editFacture .groupeLigneContent table td:last-of-type {
+  min-width: 90px; }
+#editFacture .groupeBouttons {
+  background-color: white;
+  margin: auto;
+  border: 1px solid #dddddd;
+  padding: 10px 10px; }
+#editFacture .groupeLigne {
+  position: relative; }
+  #editFacture .groupeLigne .deleteGroupeForm {
+    position: absolute;
+    right: 10px;
+    top: 10px; }
+
+#modalMontage {
+  font-size: 16px; }
+
+#ajax-loader-full-page .loaderTexte, #ajax-loader-modal .loaderTexte {
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 15px; }
+#ajax-loader-full-page > div, #ajax-loader-modal > div {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99999; }
+  #ajax-loader-full-page > div > div, #ajax-loader-modal > div > div {
+    background-color: white;
+    opacity: 0.9;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    line-height: 92px;
+    margin: auto;
+    margin-top: 20%;
+    box-shadow: 0px 0px 58px 0px black;
+    border-radius: 5px; }
+#ajax-loader-full-page > div:first-of-type, #ajax-loader-modal > div:first-of-type {
+  background-color: white;
+  opacity: 0.3; }
+
+#ajax-loader-full-page > div {
+  position: fixed; }
+
+#addReglement #historique > div .solde {
+  font-size: 1.2em; }
+#addReglement #historique > div:first-of-type {
+  text-align: center; }
+@media screen and (min-width: 990px) {
+  #addReglement #historique > div {
+    min-height: 220px;
+    text-align: left; } }
+
+#addCityBtn {
+  margin-top: 24px; }
+
+#viewClient .card {
+  padding: 10px; }
+
+/*# sourceMappingURL=default.css.map */
