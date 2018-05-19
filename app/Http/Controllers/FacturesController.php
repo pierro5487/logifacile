@@ -81,7 +81,7 @@ class FacturesController extends Controller
 	}
 	
 	public function index(){
-		$factures = Facture::paginate(10);
+		$factures = Facture::paginate(1000);
 		return view('factures.index',compact('factures'));
 	}
 	

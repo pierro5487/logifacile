@@ -33,7 +33,10 @@ class AutosController extends Controller
 	}
 	
 	public function index(){
-		$autos = Auto::with('proprietaire','marque','modele')->get();
+		$autos = Auto::with('proprietaire','marque','modele')
+		->limit(20)
+		->orderBy('created_at','DESC')
+		->get();
 		return view('autos.index',compact('autos'));
 	}
 	

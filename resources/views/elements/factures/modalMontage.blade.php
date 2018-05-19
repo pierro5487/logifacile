@@ -29,7 +29,7 @@
                             <div class="form-group col-xs-12">
                                 <h3>Taille Jante</h3>
                                 <div class="row">
-                                    @for($i = 14;$i < 22;$i++)
+                                    @for($i = 14;$i < 23;$i++)
                                         <div class="col-xs-1 text-center">
                                             <label for="size{{$i}}">{{$i}}"</label>
                                             <input id="size{{$i}}" type="radio" name="size" value="{{$i}}"/>

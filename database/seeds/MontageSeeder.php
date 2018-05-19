@@ -13,7 +13,7 @@ class MontageSeeder extends Seeder
     public function run()
     {
 		$datas = array();
-		for($i = 14;$i<22;$i++){
+		for($i = 14;$i<23;$i++){
 			$datas[] = array('size' => $i,'montage' => '1','equilibrage' => '0','valve' => '0','alu' => '0' ,'runflat'=> '0','truck' => '0','valeur'=> '10');
 			$datas[] = array('size' => $i,'montage' => '1','equilibrage' => '0','valve' => '0','alu' => '0' ,'runflat'=> '0','truck' => '1','valeur'=> '10');
 			$datas[] = array('size' => $i,'montage' => '1','equilibrage' => '0','valve' => '0','alu' => '0' ,'runflat'=> '1','truck' => '0','valeur'=> '10');
